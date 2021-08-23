@@ -12,7 +12,7 @@ AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
         children: [
           Padding(
             padding: const EdgeInsets.all(0),
-            child:  Expanded(child: Container(color: Colors.orange, height: double.infinity, width: MediaQuery.of(context).size.width*.167,))
+            child:  Expanded(child: Container(color: orange, height: double.infinity, width: MediaQuery.of(context).size.width*.1665,))
           ),
         ],
       ) : IconButton(icon: Icon(Icons.menu), onPressed: (){
