@@ -8,8 +8,8 @@ AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
       leading: !ResponsiveWidget.isSmallScreen(context) ? Row(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
-            child:  Expanded(child: Image.asset("logo.png",fit: BoxFit.cover,))
+            padding: const EdgeInsets.all(0),
+            child:  Expanded(child: Container(color: Colors.orange, height: double.infinity, width: MediaQuery.of(context).size.width*.167,))
           ),
         ],
       ) : IconButton(icon: Icon(Icons.menu), onPressed: (){
@@ -21,7 +21,7 @@ AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
             // Visibility(
             //     visible: !ResponsiveWidget.isSmallScreen(context),
             //     child: CustomText(text: "", color: lightGrey, size: 20, weight: FontWeight.bold, key: key,)),
-            Expanded(child: Container(), flex: 1,),
+            Expanded(child: Container(),flex: 5, ),
             IconButton(icon: Icon(Icons.settings, color: dark,), onPressed: (){}),
 
             Stack(

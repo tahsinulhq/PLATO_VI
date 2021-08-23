@@ -5,10 +5,10 @@ class LargeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      Expanded(child: Container(color: Colors.red,)),
+      Expanded(child: Container(color: Colors.white,)),
       Expanded(
           flex: 5,
-          child: Container(color: Colors.blue,)),
+          child: Container(color: Colors.black12,)),
 
     ],
     );
