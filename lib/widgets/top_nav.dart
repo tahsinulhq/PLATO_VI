@@ -80,4 +80,5 @@ AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
       elevation: 0,
       backgroundColor: Colors.transparent,
       toolbarHeight: 80,
+      leadingWidth: 450,
     );
