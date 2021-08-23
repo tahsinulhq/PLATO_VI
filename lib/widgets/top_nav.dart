@@ -3,7 +3,10 @@ import 'package:plato_six/helpers/responsiveness.dart';
 import 'package:plato_six/constant/style.dart';
 import 'custom_text.dart';
 
+
 AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
+
+
     AppBar(
       leading: !ResponsiveWidget.isSmallScreen(context) ? Row(
         children: [
@@ -76,4 +79,5 @@ AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
       iconTheme: IconThemeData(color: dark),
       elevation: 0,
       backgroundColor: Colors.transparent,
+      toolbarHeight: 80,
     );
