@@ -48,7 +48,7 @@ class SideMenu extends StatelessWidget {
             ),
           if(!ResponsiveWidget.isSmallScreen(context))
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: Flexible(
                 child: Image.asset('logo.png')
             ),
