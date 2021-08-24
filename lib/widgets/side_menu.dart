@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:plato_six/constant/controllers.dart';
 import 'package:plato_six/constant/style.dart';
+import 'package:plato_six/controllers/navigation_controller.dart';
 import 'package:plato_six/helpers/responsiveness.dart';
 import 'package:plato_six/routing/routes.dart';
 import 'package:plato_six/widgets/side_menu_item.dart';
@@ -72,11 +73,11 @@ class SideMenu extends StatelessWidget {
                     if(ResponsiveWidget.isSmallScreen(context))
                       Get.back();
                     // TODO :: go to item name Route
-                    //navigationController.navigateTo(item.route);
+                    navigationController.navigateTo(itemName);
                   }
                 }, key: null,
             )).toList(),
-          )
+          ),
         ],
       ),
     );
