@@ -16,7 +16,7 @@ class HorizontalMenuItem extends StatelessWidget{
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
     return InkWell(
-
+      onTap: (){onTap;},
       onHover: (value){
         value ?
         menuController.onHover(itemName):
@@ -28,7 +28,7 @@ class HorizontalMenuItem extends StatelessWidget{
         child: Row(
           children: [
             Visibility(visible: menuController.isHovering(itemName) || menuController.isActive(itemName),
-            child: Container(width: 6, height: 40, color: dark,),
+            child: Container(width: 6, height: 40, color: orange,),
             maintainSize: true, maintainState: true, maintainAnimation: true,),
 
             SizedBox(width: _width / 80,),
@@ -39,15 +39,15 @@ class HorizontalMenuItem extends StatelessWidget{
             if(!menuController.isActive(itemName))
               Flexible(child: CustomText(
                 text: itemName,
-                color: menuController.isHovering(itemName)
-                    ? dark : lightGrey,
                 size: 14,
+                color: menuController.isHovering(itemName)
+                    ? dark : Color(0xFFFFFFFF),
                 weight: FontWeight.normal,
               ))
             else
               Flexible(child: CustomText(
                 text: itemName,
-                color: dark,
+                color: Colors.white,
                 size: 18,
                 weight: FontWeight.bold,
 

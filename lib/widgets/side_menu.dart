@@ -18,7 +18,7 @@ class SideMenu extends StatelessWidget {
     double _width = MediaQuery.of(context).size.width;
 
     return Container(
-      color: light,
+      color: grey,
       child: ListView(
         children: [
           if(ResponsiveWidget.isSmallScreen(context))
@@ -31,17 +31,12 @@ class SideMenu extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(width: _width / 48),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: Image.asset("assets/icons/logo.png"),
-                    ),
+                    //Padding(
+                      //padding: const EdgeInsets.only(right: 12),
+                      //child: Image.asset("assets/icons/logo.png"),
+                    //),
                     Flexible(
-                      child: CustomText(
-                        text: "Dash",
-                        size: 20,
-                        weight: FontWeight.bold,
-                        color: active,
-                      ),
+                      child: Image.asset('logo.png')
                     ),
                     SizedBox(width: _width / 48),
                   ],
@@ -51,11 +46,20 @@ class SideMenu extends StatelessWidget {
                 ),
               ],
             ),
-          Divider(color: lightGrey.withOpacity(.1), ),
+          if(!ResponsiveWidget.isSmallScreen(context))
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 20),
+            child: Flexible(
+                child: Image.asset('logo.png')
+            ),
+          ),
+          //Divider(color: lightGrey.withOpacity(.1), ),
 
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: sideMenuItems
+            children:
+
+            sideMenuItems
                 .map((itemName) => SideMenuItem(
                 itemName: itemName == AuthenticationPageRoute ? "Log Out" : itemName,
                 onTap: () {
