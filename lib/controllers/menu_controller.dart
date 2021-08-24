@@ -30,7 +30,7 @@ class MenuController extends GetxController{
       case ReportsPageRoute:
         return _customIcon(Icons.file_copy, itemName);
       case GradePageRoute:
-        return _customIcon(Icons.grade, itemName);
+        return _customIcon(Icons.grade_sharp, itemName);
       case AuthenticationPageRoute:
         return _customIcon(Icons.exit_to_app, itemName);
       default:
