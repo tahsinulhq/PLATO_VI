@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
+import 'package:plato_six/helpers/local_navigator.dart';
 import 'package:plato_six/widgets/side_menu.dart';
 
 
@@ -11,7 +12,7 @@ class LargeScreen extends StatelessWidget {
       Expanded(child: SideMenu()),
       Expanded(
           flex: 5,
-          child: Container(color: Colors.black12,)),
+          child: localNavigator()),
 
     ],
     );
