@@ -8,11 +8,10 @@ import 'package:plato_six/controllers/navigation_controller.dart';
 import 'package:plato_six/helpers/responsiveness.dart';
 import 'package:plato_six/routing/routes.dart';
 import 'package:plato_six/widgets/side_menu_item.dart';
-
 import 'custom_text.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({ Key? key }) : super(key: key);
+  const SideMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class SideMenu extends StatelessWidget {
       color: grey,
       child: ListView(
         children: [
-          if(ResponsiveWidget.isSmallScreen(context))
+          if (ResponsiveWidget.isSmallScreen(context))
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -33,12 +32,10 @@ class SideMenu extends StatelessWidget {
                   children: [
                     SizedBox(width: _width / 48),
                     //Padding(
-                      //padding: const EdgeInsets.only(right: 12),
-                      //child: Image.asset("assets/icons/logo.png"),
+                    //padding: const EdgeInsets.only(right: 12),
+                    //child: Image.asset("assets/icons/logo.png"),
                     //),
-                    Flexible(
-                      child: Image.asset('logo.png')
-                    ),
+                    Flexible(child: Image.asset('logo.png')),
                     SizedBox(width: _width / 48),
                   ],
                 ),
@@ -47,36 +44,36 @@ class SideMenu extends StatelessWidget {
                 ),
               ],
             ),
-          if(!ResponsiveWidget.isSmallScreen(context))
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 20),
-            child: Flexible(
-                child: Image.asset('logo.png')
+          if (!ResponsiveWidget.isSmallScreen(context))
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 100.0, vertical: 20),
+              child: Flexible(child: Image.asset('logo.png')),
             ),
-          ),
           //Divider(color: lightGrey.withOpacity(.1), ),
 
           Column(
             mainAxisSize: MainAxisSize.min,
-            children:
-
-            sideMenuItems
+            children: sideMenuItems
                 .map((itemName) => SideMenuItem(
-                itemName: itemName == AuthenticationPageRoute ? "Log Out" : itemName,
-                onTap: () {
-                  if(itemName == AuthenticationPageRoute){
-                    // TODO:: go to authentication page
+                      itemName: itemName == AuthenticationPageRoute
+                          ? "Log Out"
+                          : itemName,
+                      onTap: () {
+                        if (itemName == AuthenticationPageRoute) {
+                          // TODO:: go to authentication page
 
-                  }
-                  if (!menuController.isActive(itemName)) {
-                    menuController.changeActiveItemTo(itemName);
-                    if(ResponsiveWidget.isSmallScreen(context))
-                      Get.back();
-                    // TODO :: go to item name Route
-                    navigationController.navigateTo(itemName);
-                  }
-                }, key: null,
-            )).toList(),
+                        }
+                        if (!menuController.isActive(itemName)) {
+                          menuController.changeActiveItemTo(itemName);
+                          if (ResponsiveWidget.isSmallScreen(context))
+                            Get.back();
+                          // TODO :: go to item name Route
+                          navigationController.navigateTo(itemName);
+                        }
+                      },
+                    ))
+                .toList(),
           ),
         ],
       ),

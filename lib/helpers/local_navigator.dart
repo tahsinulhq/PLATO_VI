@@ -5,7 +5,6 @@ import 'package:plato_six/routing/routes.dart';
 
 Navigator localNavigator() => Navigator(
   key: navigationController.navigatorKey,
-  onGenerateRoute: generateRoute,
   initialRoute: OverViewPageRoute,
-
+  onGenerateRoute: generateRoute,
 );
