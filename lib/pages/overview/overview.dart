@@ -27,6 +27,12 @@ class OverviewPage extends StatelessWidget {
               )
             )
           ],
+        )),
+
+        Expanded(child: ListView(
+          children: [
+            OverviewCardsLargeScreen()
+          ],
         ))
       ],
     );

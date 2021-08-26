@@ -12,7 +12,7 @@ class OverviewCardsLargeScreen extends StatelessWidget {
       children: [
         InfoCards(
           title: "Total Students",
-          value: "150",
+          value: "100",
           onT: () {},
           topColor: Colors.orange,
         ),
@@ -20,8 +20,8 @@ class OverviewCardsLargeScreen extends StatelessWidget {
           width: _width / 64,
         ),
         InfoCards(
-          title: "Packages delivered",
-          value: "17",
+          title: "Total PLO",
+          value: "12",
           topColor: Colors.lightGreen,
           onT: () {},
         ),
@@ -29,8 +29,8 @@ class OverviewCardsLargeScreen extends StatelessWidget {
           width: _width / 64,
         ),
         InfoCards(
-          title: "Cancelled delivery",
-          value: "3",
+          title: "Total CO",
+          value: "4",
           topColor: Colors.redAccent,
           onT: () {},
         ),
@@ -38,8 +38,8 @@ class OverviewCardsLargeScreen extends StatelessWidget {
           width: _width / 64,
         ),
         InfoCards(
-          title: "Scheduled deliveries",
-          value: "32",
+          title: "Total Assessments",
+          value: "15",
           onT: () {}, topColor: Colors.blueAccent,
         ),
       ],
