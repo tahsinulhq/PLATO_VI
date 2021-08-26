@@ -3,8 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:plato_six/constant/controllers.dart';
 import 'package:plato_six/constant/style.dart';
-
 import 'custom_text.dart';
+import 'package:get/get.dart';
+
 class VerticalMenuItem extends StatelessWidget {
   final String itemName;
   final Function onTap;
@@ -15,7 +16,9 @@ class VerticalMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return InkWell(
-      onTap: (){onTap;},
+      onTap: (){navigationController.navigateTo("/" + itemName).obs;
+      menuController.changeActiveItemTo(itemName);
+      print("/" + itemName);},
 
         onHover: (value) {
           value

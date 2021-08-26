@@ -4,6 +4,7 @@ import 'package:plato_six/pages/forms/forms.dart';
 import 'package:plato_six/pages/grade/grade.dart';
 import 'package:plato_six/pages/overview/overview.dart';
 import 'package:plato_six/pages/reports/reports.dart';
+import 'package:plato_six/pages/authentication/authentication.dart';
 import 'package:plato_six/routing/routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings){
@@ -16,6 +17,8 @@ Route<dynamic> generateRoute(RouteSettings settings){
         return _getPageRoute(ReportsPage());
       case GradePageRoute:
         return _getPageRoute(GradePage());
+      case AuthenticationPageRoute:
+        return _getPageRoute(AuthenticationPage());
       default:
         return _getPageRoute(OverviewPage());
     }

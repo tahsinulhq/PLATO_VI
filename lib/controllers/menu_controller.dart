@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class MenuController extends GetxController{
   static MenuController instance = Get.find();
-  var activeItem = OverViewPageRoute.obs;
+  var activeItem = overviewPageDisplayName.obs;
   var hoverItem = "".obs;
 
   changeActiveItemTo(String itemName){
