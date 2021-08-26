@@ -11,8 +11,24 @@ class OverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Center(
-        child: CustomText(text: "OverView",size: 18, weight: FontWeight.bold, color: Colors.black87,)
+    return Column(
+      children: [
+        Obx(() => Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top:
+              ResponsiveWidget.isSmallScreen(context)? 56:6
+              ),
+              child: CustomText(
+                text: menuController.activeItem.value,
+                size: 24,
+                color: Colors.black,
+                weight: FontWeight.bold,
+              )
+            )
+          ],
+        ))
+      ],
     );
   }
 }

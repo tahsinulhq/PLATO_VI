@@ -69,7 +69,6 @@ class InfoCards extends StatelessWidget {
                   ]
               )),
               Expanded(child: Container()),
-
             ],
           ),
         ),

@@ -11,8 +11,8 @@ class OverviewCardsLargeScreen extends StatelessWidget {
     return  Row(
       children: [
         InfoCards(
-          title: "Rides in progress",
-          value: "7",
+          title: "Total Students",
+          value: "150",
           onT: () {},
           topColor: Colors.orange,
         ),
