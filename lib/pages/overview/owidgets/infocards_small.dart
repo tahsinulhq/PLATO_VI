@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 
-class InfocardSmall extends StatelessWidget {
+class InfoCardSmall extends StatelessWidget {
   final String title;
   final String value;
   final bool isActive;
-  final Function onT; 
-  const InfocardSmall(
+  final Function onT;
+  const InfoCardSmall(
     { Key? key, 
     required this.title, 
     required this.value, 
     this.isActive =  false, 
-    required this.onT }) 
+     required this.onT })
     : super(key: key
     );
 
@@ -36,15 +36,15 @@ class InfocardSmall extends StatelessWidget {
             children: [
               CustomText(
                 text: title, 
-                size: 24, 
+                size: 18,
                 color: isActive ? active: lightGrey, 
                 weight: FontWeight.w300
                 ),
 
                 CustomText(
-                text: title, 
-                size: 24, 
-                color: isActive ? active: lightGrey, 
+                text: value,
+                size: 18,
+                color: isActive ? active: lightGrey,
                 weight: FontWeight.bold
                 )
             ],

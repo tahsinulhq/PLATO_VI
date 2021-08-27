@@ -5,6 +5,8 @@ import 'package:plato_six/helpers/responsiveness.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:plato_six/pages/overview/owidgets/info_cards.dart';
 import 'package:plato_six/pages/overview/owidgets/overview_cards_largescreen.dart';
+import 'package:plato_six/pages/overview/owidgets/overview_cards_mediumscreen.dart';
+import 'package:plato_six/pages/overview/owidgets/overview_cards_smalllscreen.dart';
 import 'package:plato_six/constant/controllers.dart';
 
 class OverviewPage extends StatelessWidget {
@@ -31,7 +33,14 @@ class OverviewPage extends StatelessWidget {
 
         Expanded(child: ListView(
           children: [
-            OverviewCardsLargeScreen()
+            if (ResponsiveWidget.isLargeScreen(context) ||
+                ResponsiveWidget.isMediumScreen(context))
+              if (ResponsiveWidget.isCustomSize(context))
+                OverviewCardsLargeScreen()
+              else
+                OverviewCardsLargeScreen()
+            else
+              OverviewCardsSmallScreen(),
           ],
         ))
       ],
