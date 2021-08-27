@@ -35,14 +35,16 @@ packages:
       name: charts_common
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.11.0"
   charts_flutter:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
-      name: charts_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0"
+      path: charts_flutter
+      ref: HEAD
+      resolved-ref: "30477090290b348ed3101bc13017aae465f59017"
+      url: "https://github.com/google/charts"
+    source: git
+    version: "0.11.0"
   clock:
     dependency: transitive
     description:

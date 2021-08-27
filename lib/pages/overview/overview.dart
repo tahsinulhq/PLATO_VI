@@ -8,6 +8,7 @@ import 'package:plato_six/pages/overview/owidgets/overview_cards_largescreen.dar
 import 'package:plato_six/pages/overview/owidgets/overview_cards_mediumscreen.dart';
 import 'package:plato_six/pages/overview/owidgets/overview_cards_smalllscreen.dart';
 import 'package:plato_six/constant/controllers.dart';
+import 'package:plato_six/pages/overview/owidgets/test.dart';
 
 class OverviewPage extends StatelessWidget {
   @override
@@ -41,6 +42,10 @@ class OverviewPage extends StatelessWidget {
                 OverviewCardsLargeScreen()
             else
               OverviewCardsSmallScreen(),
+           if (!ResponsiveWidget.isSmallScreen(context))
+             RevenueSectionLarge()
+           else
+             RevenueSectionLarge(),
           ],
         ))
       ],
