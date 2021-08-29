@@ -5,14 +5,16 @@ import 'package:plato_six/helpers/responsiveness.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:plato_six/constant/controllers.dart';
 
-
-class FormsPage extends StatelessWidget{
-
+class StudentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Center(
-        child: CustomText(text: "sdasda",size: 18, weight: FontWeight.bold, color: Colors.black87,)
-    );
+        child: CustomText(
+      text: "Student",
+      size: 18,
+      weight: FontWeight.bold,
+      color: Colors.black87,
+    ));
   }
 }
