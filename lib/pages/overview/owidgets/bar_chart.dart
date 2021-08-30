@@ -7,7 +7,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 class GroupedBarChart extends StatelessWidget {
-  final List<charts.Series<OrdinalSales, String>> seriesList;
+  final List<charts.Series<Ins_PloPerformance, String>> seriesList;
   final bool animate;
 
   GroupedBarChart(this.seriesList, {required this.animate});
@@ -33,55 +33,64 @@ class GroupedBarChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final desktopSalesData = [
-      new OrdinalSales('2014', 5),
-      new OrdinalSales('2015', 25),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 75),
+  static List<charts.Series<Ins_PloPerformance, String>> _createSampleData() {
+    final Student_plo = [
+      new Ins_PloPerformance('PLO 1', 20),
+      new Ins_PloPerformance('PLO 2', 25),
+      new Ins_PloPerformance('PLO 3', 100),
+      new Ins_PloPerformance('PLO 4', 75),
+      new Ins_PloPerformance('PLO 5', 50),
+      new Ins_PloPerformance('PLO 6', 45),
+      new Ins_PloPerformance('PLO 7', 92),
+      new Ins_PloPerformance('PLO 8', 34),
+      new Ins_PloPerformance('PLO 9', 80),
+      new Ins_PloPerformance('PLO 10', 52),
+      new Ins_PloPerformance('PLO 11', 69),
+      new Ins_PloPerformance('PLO 12', 48),
+      new Ins_PloPerformance('PLO 13', 72),
     ];
 
-    final tableSalesData = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 50),
-      new OrdinalSales('2016', 10),
-      new OrdinalSales('2017', 20),
+    final Course_average = [
+      new Ins_PloPerformance('PLO 1', 65),
+      new Ins_PloPerformance('PLO 2', 60),
+      new Ins_PloPerformance('PLO 3', 82),
+      new Ins_PloPerformance('PLO 4', 56),
+      new Ins_PloPerformance('PLO 5', 75),
+      new Ins_PloPerformance('PLO 6', 71),
+      new Ins_PloPerformance('PLO 7', 85),
+      new Ins_PloPerformance('PLO 8', 42),
+      new Ins_PloPerformance('PLO 9', 43),
+      new Ins_PloPerformance('PLO 10', 53),
+      new Ins_PloPerformance('PLO 11', 82),
+      new Ins_PloPerformance('PLO 12', 60),
+      new Ins_PloPerformance('PLO 13', 50),
     ];
 
-    final mobileSalesData = [
-      new OrdinalSales('2014', 10),
-      new OrdinalSales('2015', 15),
-      new OrdinalSales('2016', 50),
-      new OrdinalSales('2017', 45),
-    ];
+
 
 
     return [
-      new charts.Series<OrdinalSales, String>(
-        id: 'Desktop',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesData,
+      new charts.Series<Ins_PloPerformance, String>(
+        id: 'Plo 1',
+        domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
+        measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
+        data: Student_plo,
+
       ),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Tablet',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableSalesData,
+      new charts.Series<Ins_PloPerformance, String>(
+        id: 'Plo 2',
+        domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
+        measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
+        data: Course_average,
       ),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Mobile',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesData,
-      ),
+
     ];
   }
 }
 
 /// Sample ordinal data type.
-class OrdinalSales {
-  final String year;
-  final int sales;
-  OrdinalSales(this.year, this.sales);
+class Ins_PloPerformance {
+  final String PLO;
+  final int Percentage;
+  Ins_PloPerformance(this.PLO, this.Percentage);
 }
