@@ -38,7 +38,7 @@ class RevenueSectionLarge extends StatelessWidget {
                 Container(
                     width: 600,
                     height: 200,
-                    child: HorizontalBarChart.withSampleData()),
+                    child: GroupedBarChart.withSampleData()),
               ],
             ),
           ),

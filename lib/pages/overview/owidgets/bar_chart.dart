@@ -6,15 +6,15 @@ import 'package:plato_six/constant/style.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
-class HorizontalBarChart extends StatelessWidget {
+class GroupedBarChart extends StatelessWidget {
   final List<charts.Series<OrdinalSales, String>> seriesList;
   final bool animate;
 
-  HorizontalBarChart(this.seriesList, {required this.animate});
+  GroupedBarChart(this.seriesList, {required this.animate});
 
   /// Creates a [BarChart] with sample data and no transition.
-  factory HorizontalBarChart.withSampleData() {
-    return new HorizontalBarChart(
+  factory GroupedBarChart.withSampleData() {
+    return new GroupedBarChart(
       _createSampleData(),
       // Disable animations for image tests.
       animate: false,
@@ -28,26 +28,53 @@ class HorizontalBarChart extends StatelessWidget {
     return new charts.BarChart(
       seriesList,
       animate: animate,
-      vertical: false,
+      vertical: true,
     );
   }
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
+    final desktopSalesData = [
       new OrdinalSales('2014', 5),
       new OrdinalSales('2015', 25),
       new OrdinalSales('2016', 100),
       new OrdinalSales('2017', 75),
     ];
 
+    final tableSalesData = [
+      new OrdinalSales('2014', 25),
+      new OrdinalSales('2015', 50),
+      new OrdinalSales('2016', 10),
+      new OrdinalSales('2017', 20),
+    ];
+
+    final mobileSalesData = [
+      new OrdinalSales('2014', 10),
+      new OrdinalSales('2015', 15),
+      new OrdinalSales('2016', 50),
+      new OrdinalSales('2017', 45),
+    ];
+
+
     return [
       new charts.Series<OrdinalSales, String>(
-        id: 'Sales',
+        id: 'Desktop',
         domainFn: (OrdinalSales sales, _) => sales.year,
         measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: data,
-      )
+        data: desktopSalesData,
+      ),
+      new charts.Series<OrdinalSales, String>(
+        id: 'Tablet',
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: tableSalesData,
+      ),
+      new charts.Series<OrdinalSales, String>(
+        id: 'Mobile',
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: mobileSalesData,
+      ),
     ];
   }
 }
