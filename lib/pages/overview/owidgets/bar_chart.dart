@@ -1,10 +1,7 @@
 
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:plato_six/constant/style.dart';
 
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/material.dart';
 
 class GroupedBarChart extends StatelessWidget {
   final List<charts.Series<Ins_PloPerformance, String>> seriesList;
