@@ -7,7 +7,9 @@ class DropDownWidget extends StatefulWidget {
   State<DropDownWidget> createState() => _DropDownWidgetState();
 }
 
-String mapdropdownValue = 'CO to PLO';
+var mapdropdownValue;
+var content = ['CO to PLO', 'CO to Exam'];
+//var value;
 
 class _DropDownWidgetState extends State<DropDownWidget> {
   @override
@@ -28,8 +30,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
           //print(mapdropdownValue);
         });
       },
-      items: <String>['CO to PLO', 'CO to Exam']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: content.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),

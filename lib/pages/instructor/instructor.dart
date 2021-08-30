@@ -18,7 +18,7 @@ class InstructorPage extends StatefulWidget {
 }
 
 class _InstructorPageState extends State<InstructorPage> {
-  String pc = 'PLO to CO';
+  String cp = 'CO to PLO';
 
   String ce = 'CO to Exam';
 
@@ -64,7 +64,7 @@ class _InstructorPageState extends State<InstructorPage> {
             Expanded(
                 child: ListView(
               children: [
-                if (pc == mapdropdownValue) plotocoPage(),
+                if (cp == mapdropdownValue) plotocoPage(),
                 if (ce == mapdropdownValue) cotoexamPage()
               ],
             ))
