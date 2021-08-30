@@ -66,7 +66,7 @@ AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
                     borderRadius: BorderRadius.circular(30)
                 ),
                 padding: EdgeInsets.all(2),
-                margin: EdgeInsets.all(2),
+                margin: EdgeInsets.all(1.5),
                 child: CircleAvatar(
                   backgroundColor: light,
                   child: Icon(Icons.person_outline, color: dark,),
@@ -78,7 +78,7 @@ AppBar topNavigationBar(BuildContext context,  GlobalKey<ScaffoldState> key) =>
       ),
       iconTheme: IconThemeData(color: dark),
       elevation: 0,
-      backgroundColor: Colors.transparent,
-      toolbarHeight: 80,
+      backgroundColor: grey,
+      toolbarHeight: 50,
       leadingWidth: 450,
     );

@@ -13,7 +13,8 @@ class RevenueSectionLarge extends StatefulWidget {
 class _RevenueSectionLargeState extends State<RevenueSectionLarge> {
   late TextEditingController _controller;
   String courseDropdownValue = 'CSE101';
-  String semesterDropdownValue = 'Summer 21';
+  String semesterDropdownValue = 'Summer';
+  String yearDropdownValue = '2021';
 
   @override
   void initState() {
@@ -53,35 +54,36 @@ class _RevenueSectionLargeState extends State<RevenueSectionLarge> {
           Expanded(
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(child: DropdownButton<String>(
-                        value: courseDropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            courseDropdownValue = newValue!;
-                          });
-                        },
-                        items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(child: DropdownButton<String>(
+                    value: courseDropdownValue,
+                    icon: const Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
                     ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        courseDropdownValue = newValue!;
+                      });
+                    },
+                    items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(child: DropdownButton<String>(
@@ -99,7 +101,34 @@ class _RevenueSectionLargeState extends State<RevenueSectionLarge> {
                             semesterDropdownValue = newValue!;
                           });
                         },
-                        items: <String>['Summer 21', 'Spring 21', 'Autumn 20', 'Summer 20']
+                        items: <String>['Summer', 'Spring', 'Autumn']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(child: DropdownButton<String>(
+                        value: yearDropdownValue,
+                        icon: const Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            yearDropdownValue = newValue!;
+                          });
+                        },
+                        items: <String>['2021', '2020']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
