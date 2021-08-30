@@ -31,6 +31,7 @@ dependencies:
   google_fonts: ^2.1.0
   get: ^4.1.4
   mysql1: ^0.19.2
+  data_table_2: ^2.1.1
 
 dependency_overrides:
   charts_flutter:

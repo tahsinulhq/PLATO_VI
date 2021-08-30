@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/pages/overview/owidgets/bar_chart.dart';
 import 'package:plato_six/pages/overview/owidgets/rev_inf.dart';
-import 'package:plato_six/widgets/custom_text.dart';
 
 
 class RevenueSectionLarge extends StatelessWidget {
