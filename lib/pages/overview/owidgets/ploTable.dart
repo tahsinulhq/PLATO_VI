@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/widgets/custom_text.dart';
+// import 'package:toggle_bar_button/toggle_bar_button.dart';
 
 /// Example without datasource
 class ploTableView extends StatelessWidget {
@@ -39,6 +40,7 @@ class ploTableView extends StatelessWidget {
                   weight: FontWeight.bold)
             ],
           ),
+          
           DataTable2(
               columnSpacing: 12,
               horizontalMargin: 12,

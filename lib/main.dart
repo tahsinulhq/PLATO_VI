@@ -5,9 +5,7 @@ import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/controllers/navigation_controller.dart';
 import 'controllers/menu_controller.dart';
 import 'layout.dart';
-import 'pages/overview/overview.dart';
 import 'routing/routes.dart';
-import 'package:plato_six/pages/authentication/authentication.dart';
 
 void main() {
   Get.put(MenuController());

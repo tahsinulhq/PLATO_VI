@@ -70,7 +70,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             Expanded(
               flex: 2,
               child: Container(
-                height: MediaQuery.of(context).size.height * .25,
+                height: MediaQuery.of(context).size.height * .50,
                 width: MediaQuery.of(context).size.width,
                 child: Card(
                   elevation: 8,
