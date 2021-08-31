@@ -16,9 +16,9 @@ class _cotoexamPageState extends State<cotoexamPage> {
         children: [
           CustomText(
             text: "CO to Exam Mapping:",
-            size: 18,
+            size: 22,
             weight: FontWeight.bold,
-            color: Colors.black87,
+            color: Colors.black54,
           ),
         ]);
   }

@@ -9,6 +9,7 @@ class plotocoPage extends StatefulWidget {
 class _plotocoPageState extends State<plotocoPage> {
   @override
   Widget build(BuildContext context) {
+    // ignore: todo
     // TODO: implement build
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,

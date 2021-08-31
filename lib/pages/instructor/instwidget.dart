@@ -1,8 +1,6 @@
 import 'package:plato_six/pages/instructor/cotoexam.dart';
-import 'package:plato_six/pages/instructor/instructor.dart';
 import 'package:plato_six/pages/instructor/plotocomap.dart';
 import 'package:plato_six/pages/overview/overview.dart';
-import 'package:plato_six/widgets/custom_text.dart';
 
 import 'package:flutter/material.dart';
 
@@ -65,12 +63,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
             ),
             SizedBox(
-              height: 20.0,
+              height: 10.0,
             ),
             Expanded(
               flex: 2,
               child: Container(
-                height: MediaQuery.of(context).size.height * .25,
+                height: MediaQuery.of(context).size.height * .10,
                 width: MediaQuery.of(context).size.width,
                 child: Card(
                   elevation: 8,
@@ -80,7 +78,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'iub_logo.png',
+                          'logo.png',
                         ),
                       ],
                     ),
@@ -173,8 +171,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     // ),
                     chooseMenu(
                       context,
-                      "Go back to main menu",
-                      'back.png',
+                      "Go back to Overview",
+                      'logout.jpg',
                       () {
                         Navigator.pushAndRemoveUntil(
                             context,
