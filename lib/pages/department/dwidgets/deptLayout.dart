@@ -2,6 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
 import 'chart.dart';
 import 'package:plato_six/widgets/custom_text.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+
+List<dynamic> studentPrPlolist = [];
+List<dynamic> studentPrPloPerlist = [];
+
+List<dynamic> PrPlolist = [];
+List<dynamic> PrPloPerlist = [];
+
+
+final studentPloUrl = 'http://localhost/platoapi/Department/StPLOProgramapi.php';
+final coursePloUrl = 'http://localhost/platoapi/Department/AvgPLOProgramapi.php';
+
+String pid = "BSc.CSE";
+String stid = "1821557";
+
 
 class DeptSectionLarge extends StatefulWidget {
   @override
@@ -9,13 +26,96 @@ class DeptSectionLarge extends StatefulWidget {
 }
 
 class _DeptSectionLargeState extends State<DeptSectionLarge> {
+
+  void getStudentPrPloData() async {
+    try{
+      dynamic body = {
+        "pid": "$pid",
+        "stid": "$stid",
+      };
+
+
+      final response = await http.post(Uri.parse(studentPloUrl), body:
+      json.encode(body),
+          headers: {
+            //'Content-Type': 'application/json; charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            //"Authorization": "Some token",
+            "Access-Control-Allow-Headers": "*"}
+      );
+
+      if (response.statusCode == 200) {
+
+        print("pr" + response.body);
+        var parsed =  jsonDecode(response.body) as List;
+        setState(() {
+          studentPrPlolist = parsed.map<String>((e) => e['PLONum']).toList();
+          studentPrPloPerlist = parsed.map<String>((e) => e['ploper']).toList();
+
+        });
+
+
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+
+      }}catch (e) {
+      print(e.toString());
+
+    }
+
+  }
+
+  void getPrPloData() async {
+    try{
+      dynamic body = {
+        "pid": "$pid"
+      };
+      print(body);
+
+      final response = await http.post(Uri.parse(coursePloUrl), body:
+      json.encode(body),
+          headers: {
+            //'Content-Type': 'application/json; charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            //"Authorization": "Some token",
+            "Access-Control-Allow-Headers": "*"}
+      );
+
+      if (response.statusCode == 200) {
+        print("st" + response.body);
+        var parsed =  jsonDecode(response.body) as List;
+        setState(() {
+          PrPlolist = parsed.map<String>((e) => e['PLONum']).toList();
+          PrPloPerlist = parsed.map<String>((e) => e['ploper']).toList();
+        });
+
+
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+
+      }}catch (e) {
+      print(e.toString());
+
+    }
+
+  }
+
+
   late TextEditingController _controller;
-  String courseDropdownValue = 'CSE101';
-  String semesterDropdownValue = 'Summer';
-  String yearDropdownValue = '2021';
+  String courseDropdownValue = 'BSc.CSE';
+
 
   @override
   void initState() {
+    super.initState();
+    getStudentPrPloData();
+    getPrPloData();
     // TODO: implement initState
     _controller = TextEditingController();
   }
@@ -71,7 +171,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                           courseDropdownValue = newValue!;
                         });
                       },
-                      items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
+                      items: <String>['BSc.CEN', 'BSc.CSC', 'BSc.CSE']
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -81,67 +181,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: DropdownButton<String>(
-                          value: semesterDropdownValue,
-                          icon: const Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              semesterDropdownValue = newValue!;
-                            });
-                          },
-                          items: <String>['Summer', 'Spring', 'Autumn']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: DropdownButton<String>(
-                          value: yearDropdownValue,
-                          icon: const Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              yearDropdownValue = newValue!;
-                            });
-                          },
-                          items: <String>['2021', '2020']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
@@ -156,7 +196,8 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                       onPressed: () {
-                        print("pressed");
+                        getStudentPrPloData();
+                        getPrPloData();
                       },
                       child: Text('Submit')),
                 )

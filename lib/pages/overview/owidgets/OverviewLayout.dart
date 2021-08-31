@@ -144,7 +144,7 @@ class _RevenueSectionLargeState extends State<RevenueSectionLarge> {
       child: Row(
         children: [
           Expanded(
-            flex: 5,
+            flex: 4,
             child: Container(
                 width: 600,
                 height: 200,
