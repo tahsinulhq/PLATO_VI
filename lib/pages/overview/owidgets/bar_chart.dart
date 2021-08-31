@@ -1,11 +1,15 @@
 
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:plato_six/pages/overview/owidgets/OverviewLayout.dart';
 
-
-class GroupedBarChart extends StatelessWidget {
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+var dataList;
+class GroupedBarChart extends StatefulWidget {
   final List<charts.Series<Ins_PloPerformance, String>> seriesList;
   final bool animate;
+
 
   GroupedBarChart(this.seriesList, {required this.animate});
 
@@ -15,54 +19,40 @@ class GroupedBarChart extends StatelessWidget {
       _createSampleData(),
       // Disable animations for image tests.
       animate: false,
+
     );
   }
 
 
   @override
-  Widget build(BuildContext context) {
-    // For horizontal bar charts, set the [vertical] flag to false.
-    return new charts.BarChart(
-      seriesList,
-      animate: animate,
-      vertical: true,
-    );
-  }
+  State<GroupedBarChart> createState() => _GroupedBarChartState();
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<Ins_PloPerformance, String>> _createSampleData() {
-    final Student_plo = [
-      new Ins_PloPerformance('PLO 1', 20),
-      new Ins_PloPerformance('PLO 2', 25),
-      new Ins_PloPerformance('PLO 3', 100),
-      new Ins_PloPerformance('PLO 4', 75),
-      new Ins_PloPerformance('PLO 5', 50),
-      new Ins_PloPerformance('PLO 6', 45),
-      new Ins_PloPerformance('PLO 7', 92),
-      new Ins_PloPerformance('PLO 8', 34),
-      new Ins_PloPerformance('PLO 9', 80),
-      new Ins_PloPerformance('PLO 10', 52),
-      new Ins_PloPerformance('PLO 11', 69),
-      new Ins_PloPerformance('PLO 12', 48),
-      new Ins_PloPerformance('PLO 13', 72),
-    ];
 
-    final Course_average = [
-      new Ins_PloPerformance('PLO 1', 65),
-      new Ins_PloPerformance('PLO 2', 60),
-      new Ins_PloPerformance('PLO 3', 82),
-      new Ins_PloPerformance('PLO 4', 56),
-      new Ins_PloPerformance('PLO 5', 75),
-      new Ins_PloPerformance('PLO 6', 71),
-      new Ins_PloPerformance('PLO 7', 85),
-      new Ins_PloPerformance('PLO 8', 42),
-      new Ins_PloPerformance('PLO 9', 43),
-      new Ins_PloPerformance('PLO 10', 53),
-      new Ins_PloPerformance('PLO 11', 82),
-      new Ins_PloPerformance('PLO 12', 60),
-      new Ins_PloPerformance('PLO 13', 50),
-    ];
+    List list1 = studentPlolist;
+    List list2 = studentPloPerlist;
 
+    List list3 = coursePlolist;
+    List list4 = coursePloPerlist;
+
+    List<Ins_PloPerformance> Student_plo =[];
+    for(int i =0; i< list1.length; i++){
+      String a = list1[i];
+      double  b = double.parse(list2[i]);
+
+      Student_plo.add(Ins_PloPerformance(a, b));
+    };
+
+
+
+    List<Ins_PloPerformance> Course_average = [];
+    for(int i =0; i< list3.length; i++){
+      String a = list3[i];
+      double  b = double.parse(list4[i]);
+
+      Course_average.add(Ins_PloPerformance(a, b));
+    };
 
 
 
@@ -72,6 +62,7 @@ class GroupedBarChart extends StatelessWidget {
         domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
         measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Student_plo,
+
 
       ),
       new charts.Series<Ins_PloPerformance, String>(
@@ -85,9 +76,24 @@ class GroupedBarChart extends StatelessWidget {
   }
 }
 
+class _GroupedBarChartState extends State<GroupedBarChart> {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    // For horizontal bar charts, set the [vertical] flag to false.
+    return new charts.BarChart(
+      widget.seriesList,
+      animate: widget.animate,
+      vertical: true,
+    );
+  }
+}
+
 /// Sample ordinal data type.
 class Ins_PloPerformance {
   final String PLO;
-  final int Percentage;
+  final double Percentage;
   Ins_PloPerformance(this.PLO, this.Percentage);
 }
