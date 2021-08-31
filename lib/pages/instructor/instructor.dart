@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-<<<<<<< HEAD
 import 'package:plato_six/buttons/submitbutton.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/helpers/responsiveness.dart';
@@ -17,17 +16,9 @@ class _InstructorPageState extends State<InstructorPage> {
   String cp = 'CO to PLO';
 
   String ce = 'CO to Exam';
-=======
 
-import 'package:plato_six/helpers/responsiveness.dart';
-import 'package:plato_six/widgets/custom_text.dart';
-import 'package:plato_six/constant/controllers.dart';
->>>>>>> 39e31e24a9e2f8918e334db46602b96763ae81eb
-
-class InstructorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Container(
         padding: EdgeInsets.all(24),
         margin: EdgeInsets.symmetric(vertical: 30),
@@ -75,15 +66,5 @@ class InstructorPage extends StatelessWidget {
             ))
           ],
         ));
-=======
-    // TODO: implement build
-    return Center(
-        child: CustomText(
-      text: "Instructor",
-      size: 18,
-      weight: FontWeight.bold,
-      color: Colors.black87,
-    ));
->>>>>>> 39e31e24a9e2f8918e334db46602b96763ae81eb
   }
 }
