@@ -5,7 +5,7 @@ import 'package:plato_six/pages/overview/owidgets/OverviewLayout.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-var dataList;
+
 class GroupedBarChart extends StatefulWidget {
   final List<charts.Series<Ins_PloPerformance, String>> seriesList;
   final bool animate;

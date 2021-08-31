@@ -108,7 +108,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
 
 
   late TextEditingController _controller;
-  String courseDropdownValue = 'BSc.CSE';
+  String prDropdownValue = 'BSc.CSE';
 
 
   @override
@@ -157,7 +157,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     child: DropdownButton<String>(
-                      value: courseDropdownValue,
+                      value: prDropdownValue,
                       icon: const Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
@@ -168,7 +168,9 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
-                          courseDropdownValue = newValue!;
+                          prDropdownValue = newValue!;
+                          pid = prDropdownValue;
+
                         });
                       },
                       items: <String>['BSc.CEN', 'BSc.CSC', 'BSc.CSE']
@@ -189,7 +191,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Student ID',
-                        hintText: '1820243'),
+                        hintText: '1820243'),onChanged: (String value){ stid = "$value";}
                   ),
                 ),
                 Padding(

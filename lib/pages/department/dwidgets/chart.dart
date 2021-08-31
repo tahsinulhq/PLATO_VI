@@ -1,9 +1,16 @@
+
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:plato_six/pages/overview/owidgets/OverviewLayout.dart';
+import 'deptLayout.dart';
 
-class GroupedBarChart extends StatelessWidget {
-  final List<charts.Series<Dept_PloAchvsAvg, String>> seriesList;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class GroupedBarChart extends StatefulWidget {
+  final List<charts.Series<Ins_PloPerformance, String>> seriesList;
   final bool animate;
+
 
   GroupedBarChart(this.seriesList, {required this.animate});
 
@@ -13,73 +20,81 @@ class GroupedBarChart extends StatelessWidget {
       _createSampleData(),
       // Disable animations for image tests.
       animate: false,
+
     );
   }
+
 
   @override
-  Widget build(BuildContext context) {
-    // For horizontal bar charts, set the [vertical] flag to false.
-    return new charts.BarChart(
-      seriesList,
-      animate: animate,
-      vertical: true,
-    );
-  }
+  State<GroupedBarChart> createState() => _GroupedBarChartState();
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<Dept_PloAchvsAvg, String>> _createSampleData() {
-    final Student_plo = [
-      new Dept_PloAchvsAvg('PLO 1', 20),
-      new Dept_PloAchvsAvg('PLO 2', 25),
-      new Dept_PloAchvsAvg('PLO 3', 100),
-      new Dept_PloAchvsAvg('PLO 4', 75),
-      new Dept_PloAchvsAvg('PLO 5', 50),
-      new Dept_PloAchvsAvg('PLO 6', 45),
-      new Dept_PloAchvsAvg('PLO 7', 92),
-      new Dept_PloAchvsAvg('PLO 8', 34),
-      new Dept_PloAchvsAvg('PLO 9', 80),
-      new Dept_PloAchvsAvg('PLO 10', 52),
-      new Dept_PloAchvsAvg('PLO 11', 69),
-      new Dept_PloAchvsAvg('PLO 12', 48),
-      new Dept_PloAchvsAvg('PLO 13', 72),
-    ];
+  static List<charts.Series<Ins_PloPerformance, String>> _createSampleData() {
 
-    final Course_average = [
-      new Dept_PloAchvsAvg('PLO 1', 65),
-      new Dept_PloAchvsAvg('PLO 2', 60),
-      new Dept_PloAchvsAvg('PLO 3', 82),
-      new Dept_PloAchvsAvg('PLO 4', 56),
-      new Dept_PloAchvsAvg('PLO 5', 75),
-      new Dept_PloAchvsAvg('PLO 6', 71),
-      new Dept_PloAchvsAvg('PLO 7', 85),
-      new Dept_PloAchvsAvg('PLO 8', 42),
-      new Dept_PloAchvsAvg('PLO 9', 43),
-      new Dept_PloAchvsAvg('PLO 10', 53),
-      new Dept_PloAchvsAvg('PLO 11', 82),
-      new Dept_PloAchvsAvg('PLO 12', 60),
-      new Dept_PloAchvsAvg('PLO 13', 50),
-    ];
+    List list1 = studentPrPlolist;
+    List list2 = studentPrPloPerlist;
+
+    List list3 = coursePlolist;
+    List list4 = coursePloPerlist;
+
+    List<Ins_PloPerformance> Student_plo =[];
+    for(int i =0; i< list1.length; i++){
+      String a = list1[i];
+      double  b = double.parse(list2[i]);
+
+      Student_plo.add(Ins_PloPerformance(a, b));
+    };
+
+
+
+    List<Ins_PloPerformance> Course_average = [];
+    for(int i =0; i< list3.length; i++){
+      String a = list3[i];
+      double  b = double.parse(list4[i]);
+
+      Course_average.add(Ins_PloPerformance(a, b));
+    };
+
+
 
     return [
-      new charts.Series<Dept_PloAchvsAvg, String>(
+      new charts.Series<Ins_PloPerformance, String>(
         id: 'Plo 1',
-        domainFn: (Dept_PloAchvsAvg sales, _) => sales.PLO,
-        measureFn: (Dept_PloAchvsAvg sales, _) => sales.Percentage,
+        domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
+        measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Student_plo,
+
+
       ),
-      new charts.Series<Dept_PloAchvsAvg, String>(
+      new charts.Series<Ins_PloPerformance, String>(
         id: 'Plo 2',
-        domainFn: (Dept_PloAchvsAvg sales, _) => sales.PLO,
-        measureFn: (Dept_PloAchvsAvg sales, _) => sales.Percentage,
+        domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
+        measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Course_average,
       ),
+
     ];
   }
 }
 
+class _GroupedBarChartState extends State<GroupedBarChart> {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    // For horizontal bar charts, set the [vertical] flag to false.
+    return new charts.BarChart(
+      widget.seriesList,
+      animate: widget.animate,
+      vertical: true,
+    );
+  }
+}
+
 /// Sample ordinal data type.
-class Dept_PloAchvsAvg {
+class Ins_PloPerformance {
   final String PLO;
-  final int Percentage;
-  Dept_PloAchvsAvg(this.PLO, this.Percentage);
+  final double Percentage;
+  Ins_PloPerformance(this.PLO, this.Percentage);
 }
