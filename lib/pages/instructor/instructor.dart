@@ -6,6 +6,7 @@ import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/helpers/responsiveness.dart';
 import 'package:plato_six/pages/instructor/cotoexam.dart';
 import 'package:plato_six/pages/instructor/plotocomap.dart';
+import 'package:plato_six/pages/instructor/instwidget.dart';
 import 'package:plato_six/widgets/dropdownwidget.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:plato_six/constant/controllers.dart';
@@ -57,15 +58,16 @@ class _InstructorPageState extends State<InstructorPage> {
                         ))
                   ],
                 )),
-            DropDownWidget(),
+            //DropDownWidget(),
             SubmitButton(onPressed: () {
               print("Submitted");
             }),
             Expanded(
                 child: ListView(
               children: [
-                if (cp == mapdropdownValue) plotocoPage(),
-                if (ce == mapdropdownValue) cotoexamPage()
+                AdminDashboard()
+                //if (cp == mapdropdownValue) plotocoPage(),
+                //if (ce == mapdropdownValue) cotoexamPage()
               ],
             ))
           ],
