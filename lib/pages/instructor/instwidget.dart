@@ -132,7 +132,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => cotoexamPage()));
+                                builder: (context) => cotoExamPage()));
                       },
                     ),
                     // chooseMenu(
