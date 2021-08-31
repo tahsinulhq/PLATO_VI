@@ -30,7 +30,7 @@ class _haInfoCardsSmallState extends State<haInfoCardsSmall> {
         child: Container(
           padding: EdgeInsets.all(24),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.lightBlue,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                   color: widget.isActive ? active : lightGrey, width: .5)),

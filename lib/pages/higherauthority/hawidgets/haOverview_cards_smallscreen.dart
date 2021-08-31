@@ -39,7 +39,7 @@ class haOverviewCardsSmall extends StatelessWidget {
             ),
             haInfoCardsSmall(
               title: "Total Schools",
-              value: "5",
+              value: "4",
               onT: () {},
             ),
           ],

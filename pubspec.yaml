@@ -32,6 +32,7 @@ dependencies:
   get: ^4.1.4
   mysql1: ^0.19.2
   data_table_2: ^2.1.1
+  charts_flutter: ^0.11.0
 
 dependency_overrides:
   charts_flutter:

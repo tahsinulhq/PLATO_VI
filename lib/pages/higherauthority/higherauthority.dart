@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:get/get.dart';
 import 'package:plato_six/helpers/responsiveness.dart';
+import 'hawidgets/haOverviewGraphLayout.dart';
 import 'hawidgets/haOverview_cards_largescreen.dart';
 import 'hawidgets/haOverview_cards_smallscreen.dart';
 import 'package:plato_six/constant/controllers.dart';
@@ -19,7 +20,7 @@ class HigherAuthorityPage extends StatelessWidget {
                         top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                     child: CustomText(
                       text: menuController.activeItem.value,
-                      size: 24,
+                      size: 26,
                       color: Colors.black,
                       weight: FontWeight.bold,
                     ))
@@ -36,11 +37,11 @@ class HigherAuthorityPage extends StatelessWidget {
                 haOverviewCardsLargeScreen()
             else
               haOverviewCardsSmall(),
-            // if (!ResponsiveWidget.isSmallScreen(context))
-            //   RevenueSectionLarge()
-            // else
-            //   RevenueSectionLarge(),
-            //   Container(child: ploTableView()),
+            if (!ResponsiveWidget.isSmallScreen(context))
+              haOverviewGraphLayout()
+            else
+              haOverviewGraphLayout()
+              // Container(child: ploTableView()),
           ],
         ))
       ],

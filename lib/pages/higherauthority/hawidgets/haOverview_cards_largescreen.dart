@@ -19,7 +19,7 @@ class haOverviewCardsLargeScreen extends StatelessWidget {
         ),
         InfoCards(
           title: "Total Departments",
-          value: "13",
+          value: "17",
           topColor: Colors.lightGreen,
           onT: () {},
         ),
