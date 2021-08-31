@@ -10,13 +10,16 @@ class _plotocoPageState extends State<plotocoPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(children: [
-      CustomText(
-        text: "PLO to CO Mapping:",
-        size: 18,
-        weight: FontWeight.bold,
-        color: Colors.black87,
-      ),
-    ]);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            text: "PLO to CO Mapping:",
+            size: 18,
+            weight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ]);
   }
 }

@@ -10,13 +10,16 @@ class _cotoexamPageState extends State<cotoexamPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(children: [
-      CustomText(
-        text: "CO to Exam Mapping:",
-        size: 18,
-        weight: FontWeight.bold,
-        color: Colors.black87,
-      ),
-    ]);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            text: "CO to Exam Mapping:",
+            size: 18,
+            weight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ]);
   }
 }
