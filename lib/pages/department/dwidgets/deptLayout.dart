@@ -241,6 +241,8 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
           ),
           child: Column(
             children: [
+              CustomText(text: 'Student PLO VS Program PLO Average', size: 18, color: Colors.black, weight: FontWeight.bold),
+              SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -334,6 +336,8 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
           ),
           child: Column(
             children: [
+              CustomText(text: 'PLO Achieved VS  PLO Failed', size: 18, color: Colors.black, weight: FontWeight.bold),
+              SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(

@@ -141,148 +141,154 @@ class _RevenueSectionLargeState extends State<RevenueSectionLarge> {
         ],
         border: Border.all(color: lightGrey, width: .5),
       ),
-      child: Row(
+      child: Column(
         children: [
-          Expanded(
-            flex: 4,
-            child: Container(
-                width: 600,
-                height: 200,
-                child: GroupedBarChart.withSampleData()),
-          ),
-          Container(
-            width: 1,
-            height: 120,
-            color: lightGrey,
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(child: DropdownButton<String>(
-                    value: courseDropdownValue,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        courseDropdownValue = newValue!;
-                        cid = courseDropdownValue;
-                      });
-                    },
-                    items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          CustomText(text: 'Student PLO VS Course PLO Average', size: 18, color: Colors.black, weight: FontWeight.bold),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              Expanded(
+                flex: 4,
+                child: Container(
+                    width: 600,
+                    height: 200,
+                    child: GroupedBarChart.withSampleData()),
+              ),
+              Container(
+                width: 1,
+                height: 120,
+                color: lightGrey,
+              ),
+              Expanded(
+                child: Column(
                   children: [
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(child: DropdownButton<String>(
-                          value: semesterDropdownValue,
-                          icon: const Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              semesterDropdownValue = newValue!;
-                              semester = semesterDropdownValue;
-                            });
-                          },
-                          items: <String>['Summer', 'Spring', 'Autumn']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(child: DropdownButton<String>(
+                        value: courseDropdownValue,
+                        icon: const Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.deepPurpleAccent,
                         ),
-                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            courseDropdownValue = newValue!;
+                            cid = courseDropdownValue;
+                          });
+                        },
+                        items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                       ),
                     ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(child: DropdownButton<String>(
-                          value: yearDropdownValue,
-                          icon: const Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(child: DropdownButton<String>(
+                              value: semesterDropdownValue,
+                              icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: const TextStyle(color: Colors.deepPurple),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  semesterDropdownValue = newValue!;
+                                  semester = semesterDropdownValue;
+                                });
+                              },
+                              items: <String>['Summer', 'Spring', 'Autumn']
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                            ),
                           ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              yearDropdownValue = newValue!;
-                              year = yearDropdownValue;
-                            });
-                          },
-                          items: <String>['2021', '2020']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
                         ),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(child: DropdownButton<String>(
+                              value: yearDropdownValue,
+                              icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: const TextStyle(color: Colors.deepPurple),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  yearDropdownValue = newValue!;
+                                  year = yearDropdownValue;
+                                });
+                              },
+                              items: <String>['2021', '2020']
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                            ),
+                          ),
                         ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Student ID',
+                          hintText: '1820243',
+                        ),
+                        onChanged: (String value){ stid = "$value";}
+
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(onPressed: (){print("pressed");
+                      //print(plolist);
+                      getStudentPloData();
+                      getCoursePloData();
+                      print("COurse");
+                      print(coursePlolist);
+                      print(coursePloPerlist);
+                      // print(semester);
+                      // print(year);
+                     // print(body);
+
+
+                      }, child: Text('Submit')),
+                    )
+
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Student ID',
-                      hintText: '1820243',
-                    ),
-                    onChanged: (String value){ stid = "$value";}
-
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(onPressed: (){print("pressed");
-                  //print(plolist);
-                  getStudentPloData();
-                  getCoursePloData();
-                  print("COurse");
-                  print(coursePlolist);
-                  print(coursePloPerlist);
-                  // print(semester);
-                  // print(year);
-                 // print(body);
-
-
-                  }, child: Text('Submit')),
-                )
-
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

@@ -72,6 +72,7 @@ class GroupedBarChart extends StatefulWidget {
         domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
         measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Course_average,
+
       ),
 
     ];
@@ -91,6 +92,7 @@ class _GroupedBarChartState extends State<GroupedBarChart> {
       vertical: true,
       barGroupingType: charts.BarGroupingType.grouped,
       behaviors: [new charts.SeriesLegend()],
+
     );
   }
 }
