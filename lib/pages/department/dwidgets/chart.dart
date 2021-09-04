@@ -19,7 +19,8 @@ class GroupedBarChart extends StatefulWidget {
     return new GroupedBarChart(
       _createSampleData(),
       // Disable animations for image tests.
-      animate: false,
+      animate: true,
+
 
     );
   }
@@ -59,7 +60,7 @@ class GroupedBarChart extends StatefulWidget {
 
     return [
       new charts.Series<Ins_PloPerformance, String>(
-        id: 'Plo 1',
+        id: 'Student PLO',
         domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
         measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Student_plo,
@@ -67,7 +68,7 @@ class GroupedBarChart extends StatefulWidget {
 
       ),
       new charts.Series<Ins_PloPerformance, String>(
-        id: 'Plo 2',
+        id: 'Program Average',
         domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
         measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Course_average,
@@ -88,6 +89,8 @@ class _GroupedBarChartState extends State<GroupedBarChart> {
       widget.seriesList,
       animate: widget.animate,
       vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      behaviors: [new charts.SeriesLegend()],
     );
   }
 }
