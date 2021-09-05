@@ -140,6 +140,8 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
       );
 
       if (response.statusCode == 200) {
+         achievedPlolist.clear();
+         achievedPloPerlist.clear();
 
         print("ach" + response.body);
         var parsed =  jsonDecode(response.body) as List;
@@ -181,6 +183,8 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
       );
 
       if (response.statusCode == 200) {
+        failedPlolist.clear();
+        failedPloPerlist.clear();
 
         print("fail" + response.body);
         var parsed =  jsonDecode(response.body) as List;
@@ -461,6 +465,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                             // print(semester);
                             // print(year);
                             // print(body);
+                          print(semester);
                             getAchievedPloData();
                              getFailedPloData();
 
