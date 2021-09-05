@@ -26,7 +26,7 @@ class InfoCards extends StatelessWidget {
           height: 136,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Colors.lightBlue, 
+            color: Colors.white,
             boxShadow: [
               BoxShadow(
                 offset: Offset(0,6), 

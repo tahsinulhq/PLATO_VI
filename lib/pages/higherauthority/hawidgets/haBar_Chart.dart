@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
-class GroupedBarChart extends StatelessWidget {
-  final List<charts.Series<HA_StPloPerformance, String>> seriesList;
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
+import 'package:plato_six/pages/higherauthority/hawidgets/haOverviewGraphLayout.dart';
+import 'package:plato_six/pages/overview/owidgets/OverviewLayout.dart';
+import 'haOverviewGraphLayout.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class GroupedBarChart extends StatefulWidget {
+  final List<charts.Series<Ins_PloPerformance, String>> seriesList;
   final bool animate;
+
 
   GroupedBarChart(this.seriesList, {required this.animate});
 
@@ -12,73 +20,88 @@ class GroupedBarChart extends StatelessWidget {
     return new GroupedBarChart(
       _createSampleData(),
       // Disable animations for image tests.
-      animate: false,
+      animate: true,
+
+
     );
   }
+
 
   @override
-  Widget build(BuildContext context) {
-    // For horizontal bar charts, set the [vertical] flag to false.
-    return new charts.BarChart(
-      seriesList,
-      animate: animate,
-      vertical: true,
-    );
-  }
+  State<GroupedBarChart> createState() => _GroupedBarChartState();
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<HA_StPloPerformance, String>> _createSampleData() {
-    final Student_plo = [
-      new HA_StPloPerformance('PLO 1', 20),
-      new HA_StPloPerformance('PLO 2', 25),
-      new HA_StPloPerformance('PLO 3', 100),
-      new HA_StPloPerformance('PLO 4', 75),
-      new HA_StPloPerformance('PLO 5', 50),
-      new HA_StPloPerformance('PLO 6', 45),
-      new HA_StPloPerformance('PLO 7', 92),
-      new HA_StPloPerformance('PLO 8', 34),
-      new HA_StPloPerformance('PLO 9', 80),
-      new HA_StPloPerformance('PLO 10', 52),
-      new HA_StPloPerformance('PLO 11', 69),
-      new HA_StPloPerformance('PLO 12', 48),
-      new HA_StPloPerformance('PLO 13', 72),
-    ];
+  static List<charts.Series<Ins_PloPerformance, String>> _createSampleData() {
 
-    final Course_average = [
-      new HA_StPloPerformance('PLO 1', 65),
-      new HA_StPloPerformance('PLO 2', 60),
-      new HA_StPloPerformance('PLO 3', 82),
-      new HA_StPloPerformance('PLO 4', 56),
-      new HA_StPloPerformance('PLO 5', 75),
-      new HA_StPloPerformance('PLO 6', 71),
-      new HA_StPloPerformance('PLO 7', 85),
-      new HA_StPloPerformance('PLO 8', 42),
-      new HA_StPloPerformance('PLO 9', 43),
-      new HA_StPloPerformance('PLO 10', 53),
-      new HA_StPloPerformance('PLO 11', 82),
-      new HA_StPloPerformance('PLO 12', 60),
-      new HA_StPloPerformance('PLO 13', 50),
-    ];
+    List list1 = attemptedPlolist;
+    List list2 = attemptedPloPerlist;
+
+    List list3 = achievedPlolist;
+    List list4 = achievedPloPerlist;
+
+
+
+    List<Ins_PloPerformance> Student_plo =[];
+    for(int i =0; i< list1.length; i++){
+      String a = list1[i];
+      double  b = double.parse(list2[i]);
+      Student_plo.add(Ins_PloPerformance(a, b));
+    };
+
+
+
+    List<Ins_PloPerformance> Course_average = [];
+    for(int i =0; i< list3.length; i++){
+      String a = list3[i];
+      double  b = double.parse(list4[i]);
+
+      Course_average.add(Ins_PloPerformance(a, b));
+    };
+
+
 
     return [
-      new charts.Series<HA_StPloPerformance, String>(
-        id: 'Plo 1',
-        domainFn: (HA_StPloPerformance sales, _) => sales.PLO,
-        measureFn: (HA_StPloPerformance sales, _) => sales.Percentage,
+      new charts.Series<Ins_PloPerformance, String>(
+        id: 'attempted',
+        domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
+        measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Student_plo,
+
+
       ),
-      new charts.Series<HA_StPloPerformance, String>(
-        id: 'Plo 2',
-        domainFn: (HA_StPloPerformance sales, _) => sales.PLO,
-        measureFn: (HA_StPloPerformance sales, _) => sales.Percentage,
+      new charts.Series<Ins_PloPerformance, String>(
+        id: 'achieved',
+        domainFn: (Ins_PloPerformance sales, _) => sales.PLO,
+        measureFn: (Ins_PloPerformance sales, _) => sales.Percentage,
         data: Course_average,
+
       ),
+
     ];
   }
 }
 
-class HA_StPloPerformance {
+class _GroupedBarChartState extends State<GroupedBarChart> {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    // For horizontal bar charts, set the [vertical] flag to false.
+    return new charts.BarChart(
+      widget.seriesList,
+      animate: widget.animate,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      behaviors: [new charts.SeriesLegend()],
+
+    );
+  }
+}
+
+/// Sample ordinal data type.
+class Ins_PloPerformance {
   final String PLO;
-  final int Percentage;
-  HA_StPloPerformance(this.PLO, this.Percentage);
+  final double Percentage;
+  Ins_PloPerformance(this.PLO, this.Percentage);
 }
