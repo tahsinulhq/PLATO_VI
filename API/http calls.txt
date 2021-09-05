@@ -1,0 +1,21 @@
+
+1.
+http://localhost/platoapi/Department/AvgPLOProgramapi.php
+http://localhost/platoapi/Department/StPLOProgramapi.php
+
+2. Achieved VS Attempted:
+http://localhost/platoapi/HigherAuthority/AttemptedPLOStdCountapi.php
+http://localhost/platoapi/HigherAuthority/AchievedPLOStdCountapi.php
+
+3. Instructor Wise PLO for selected course:
+http://localhost/platoapi/Department/InstructorPLOCourseapi.php
+
+4. Selected PLO Selected Course within choosen semesters:
+http://localhost/platoapi/Department/SelectedPLOCompCourseapi.php
+
+5. For selected Uni, PLO achieved count comparison for each PLO within a chosen time frame:
+http://localhost/platoapi/HigherAuthority/UniAchievedPLOCountProgramapi.php
+
+6. Miscellaneous:
+Dept Average PLO Count
+localhost/platoapi/HigherAuthority/MiscAvgPLOCountDeptapi.php
