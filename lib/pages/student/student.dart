@@ -1,20 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:plato_six/helpers/responsiveness.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:plato_six/constant/controllers.dart';
+import 'swidgets/student_cards_largescreen.dart';
+import 'swidgets/student_cards_smallscreen.dart';
 
 class StudentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Center(
-        child: CustomText(
-      text: "Student",
-      size: 18,
-      weight: FontWeight.bold,
-      color: Colors.black87,
-    ));
+    return Column(
+      children: [
+                Obx(() => Row(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(
+                        top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+                    child: CustomText(
+                      text: menuController.activeItem.value,
+                      size: 24,
+                      color: Colors.black,
+                      weight: FontWeight.bold,
+                    ))
+              ],
+            )),
+
+        Expanded(
+            child: ListView(
+          children: [
+            if (ResponsiveWidget.isLargeScreen(context) ||
+                ResponsiveWidget.isMediumScreen(context))
+              if (ResponsiveWidget.isCustomSize(context))
+                StdCardsLargeScreen()
+              else
+                StdCardsLargeScreen()
+            else
+              StdCardsSmallScreen(),
+            // if (!ResponsiveWidget.isSmallScreen(context))
+            //   // DeptSectionLarge()
+          ],
+        ))
+
+
+
+      ],
+    );
   }
 }

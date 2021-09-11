@@ -65,7 +65,9 @@ class _RevenueSectionLargeState extends State<RevenueSectionLarge> {
         //data = response.statusCode as String;
         print(response.statusCode);
 
-      }}catch (e) {
+      }
+      }
+      catch (e) {
       print(e.toString());
 
     }

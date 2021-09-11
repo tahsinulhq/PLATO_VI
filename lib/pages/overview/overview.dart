@@ -7,7 +7,7 @@ import 'package:plato_six/pages/overview/owidgets/overview_cards_smalllscreen.da
 import 'package:plato_six/constant/controllers.dart';
 import 'package:plato_six/pages/overview/owidgets/OverviewLayout.dart';
 
-import 'owidgets/ploTable.dart';
+import 'owidgets/tableLayout.dart';
 
 class OverviewPage extends StatelessWidget {
   @override
@@ -44,7 +44,7 @@ class OverviewPage extends StatelessWidget {
               RevenueSectionLarge()
             else
               RevenueSectionLarge(),
-              Container(child: ploTableView()),
+            Container(child: dataTableView()),
           ],
         ))
 

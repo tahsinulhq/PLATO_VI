@@ -36,7 +36,7 @@ class ploTableView extends StatelessWidget {
                   text: "PLO Table",
                   size: 24,
                   color: Colors.grey,
-                  weight: FontWeight.bold)
+                  weight: FontWeight.bold),
             ],
           ),
           DataTable2(
