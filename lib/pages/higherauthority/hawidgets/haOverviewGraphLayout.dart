@@ -15,7 +15,8 @@ List<dynamic> achievedPloPerlist = [];
 List<dynamic> deptPloCount = [];
 List<dynamic> deptPloStdCount = [];
 
-
+List<dynamic> tempdeptPloCount = [];
+List<dynamic> tempdeptPloStdCount = [];
 
 final attemptedPloUrl =
     'http://localhost/platoapi/HigherAuthority/AttemptedPLOStdCountapi.php';
@@ -51,8 +52,8 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
   String yearDropdownValue = '2021';
 
   String deptDropdownValue = 'CSE';
-  String stSemesterDropdownValue = 'Summer';
-  String endSemesterDropdownValue = 'Spring';
+  String stSemesterDropdownValue = 'Spring';
+  String endSemesterDropdownValue = 'Summer';
   String stYearDropdownValue = '2021';
   String endYearDropdownValue = '2021';
 
@@ -136,36 +137,60 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
       });
 
       if (response.statusCode == 200) {
-        deptPloCount.clear();
-        deptPloStdCount.clear();
-        print(response.body);
-        List<dynamic> tempdeptPloCount = [];
-        List<dynamic> tempdeptPloStdCount = [];
+       // deptPloCount.clear();
+        // deptPloStdCount.clear();
+
+         tempdeptPloCount.clear();
+         tempdeptPloStdCount.clear();
 
         var parsed = jsonDecode(response.body) as List;
 
-          tempdeptPloCount = parsed.map<String>((e) => e['PLONum']).toList();
-          tempdeptPloStdCount = parsed.map<String>((e) => e['Stcount']).toList();
+           tempdeptPloCount = await parsed.map<String>((e) => e['PLONum']).toList();
+          tempdeptPloStdCount = await parsed.map<String>((e) => e['Stcount']).toList();
           print("tempdpt" );
-          print(tempdeptPloStdCount);
+         print(tempdeptPloStdCount);
+         print("length" );
+         print(tempdeptPloStdCount.length);
 
-          setState(() {
+
             if (deptPloStdCount.isEmpty == true){
 
               for (int i=0; i<tempdeptPloStdCount.length; i++){
 
                 deptPloStdCount.add(tempdeptPloStdCount[i]);
 
-              }}
+              }
+            setState(() {
+              deptPloStdCount;
+            });
+            }
             else if(tempdeptPloStdCount.isEmpty == true){
-              deptPloStdCount = deptPloStdCount;
+              // deptPloStdCount = deptPloStdCount;
             }
             else{
-              for (int i=0; i<deptPloStdCount.length; i++){
-
-                deptPloStdCount[i] = deptPloStdCount[i] + tempdeptPloStdCount[i];
-
+              if(deptPloStdCount.length == tempdeptPloStdCount.length){
+              for (int i=0; i<tempdeptPloStdCount.length; i++){
+                deptPloStdCount[i] = (int.parse(deptPloStdCount[i] )+ int.parse(tempdeptPloStdCount[i])).toString();}
               }
+
+              for (int i=0; i<tempdeptPloStdCount.length; i++){
+                if(deptPloStdCount.length != tempdeptPloStdCount.length){
+                  for (int j= 0; j<deptPloStdCount.length ; j++){
+                    deptPloStdCount[j] = (int.parse(deptPloStdCount[j] )+ int.parse(tempdeptPloStdCount[j])).toString();
+                    i =j++;
+                  }
+                  deptPloStdCount.add(tempdeptPloStdCount[i]);
+                }
+              }
+
+
+
+
+              setState(() {
+                deptPloStdCount;
+              });
+              print('test');
+              print(deptPloStdCount);
             }
 
             var temp = null;
@@ -176,6 +201,9 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
                 deptPloCount.add(tempdeptPloCount[i]);
 
               }
+              setState(() {
+                deptPloCount;
+              });
 
 
             }
@@ -196,12 +224,16 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
                 deptPloCount.add(temp);
 
 
-            }}
-            print("tempdpt hi" );
-            print(deptPloCount);
+            }
+
+            setState(() {
+              deptPloCount;
+            });
+            }
 
 
-          });
+
+
 
 
 
@@ -213,7 +245,11 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
       print(e.toString());
     }
   }
-  void getTimeFrame() async {
+  void getTimeFrame()  {
+    deptPloCount.clear();
+    deptPloStdCount.clear();
+    passingYear="";
+    passingSemester = "";
     var stSemVal;
     var endSemVal;
     var timeFrame;
@@ -256,6 +292,8 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
     else if(semDif != 0 && year !=0){
       timeFrame = (semDif +(year*3))+1;
     }
+    print("time" );
+    print(timeFrame);
 
     for (int i = 0; i<timeFrame; i++){
       if(currSem == 'Spring'){
@@ -289,12 +327,17 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
 
 
     }
+  for (int i=0; i<deptPloStdCount.length; i++){
 
-    for (int i=0; i<deptPloStdCount.length; i++){
+    deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
 
-      deptPloStdCount[i] = deptPloStdCount[i]/ timeFrame;
+  }
 
-}
+  setState(() {
+    deptPloStdCount;
+  });
+
+
     currSem = stSemester;
     print('PLO');
     print(deptPloCount);
@@ -310,6 +353,7 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
   void initState() {
     getAttemptedPloData();
     getAchievedPloData();
+    getTimeFrame();
   }
 
   @override

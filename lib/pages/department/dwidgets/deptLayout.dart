@@ -5,6 +5,7 @@ import 'chart.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_radar_chart/flutter_radar_chart.dart';
 
 
 List<dynamic> studentPrPlolist = [];
@@ -18,6 +19,12 @@ List<dynamic> achievedPloPerlist = [];
 
 List<dynamic> failedPlolist = [];
 List<dynamic> failedPloPerlist = [];
+
+List<int> test1 = [];
+List<int> test2 = [];
+
+const ticks = [0, 20, 40, 60, 80, 90];
+
 
 
 final studentPloUrl = 'http://localhost/platoapi/Department/StPLOProgramapi.php';
@@ -68,8 +75,23 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
           studentPrPlolist = parsed.map<String>((e) => e['PLONum']).toList();
           studentPrPloPerlist = parsed.map<String>((e) => e['ploper']).toList();
 
+          //test
+          for(int i =0; i< studentPrPloPerlist.length; i++){
+            double a= double.parse(studentPrPloPerlist[i]);
+
+            test1.add(a.round());
+
+          }
+          print("test1");
+          print(test1);
+
         });
 
+
+        // setState(() {
+        //   test1;
+        //
+        // });
 
       } else {
         //data = response.statusCode as String;
@@ -105,7 +127,23 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
         setState(() {
           PrPlolist = parsed.map<String>((e) => e['PLONum']).toList();
           PrPloPerlist = parsed.map<String>((e) => e['ploper']).toList();
+          
+          for(int i =0; i< PrPloPerlist.length; i++){
+            double a= double.parse(PrPloPerlist[i]);
+
+            test2.add(a.round());
+            print("test2");
+            print(test2);
+          }
+
         });
+
+        //test
+
+        // setState(() {
+        //   test2;
+        //
+        // });
 
 
       } else {
@@ -471,17 +509,64 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
 
 
                           }, child: Text('Submit')),
-                        )
+                        ),
+
                       ],
                     ),
                   ),
+
                 ],
               ),
 
             ],
           ),
         ),
+        SizedBox(height: 10,),
+        // Container(
+        //   padding: EdgeInsets.all(24),
+        //   margin: EdgeInsets.symmetric(vertical: 30),
+        //   decoration: BoxDecoration(
+        //     color: Colors.white,
+        //     borderRadius: BorderRadius.circular(8),
+        //     boxShadow: [
+        //       BoxShadow(
+        //           offset: Offset(0, 6),
+        //           color: lightGrey.withOpacity(.1),
+        //           blurRadius: 12)
+        //     ],
+        //     border: Border.all(color: lightGrey, width: .5),
+        //   ),
+        //   child: Column(
+        //     children: [
+        //       CustomText(text: 'PLO Achieved VS  PLO Failed', size: 18, color: Colors.black, weight: FontWeight.bold),
+        //       SizedBox(height: 20),
+        //       RadarChart.light(
+        //         ticks: ticks,
+        //         features: studentPrPlolist.cast<String>(),
+        //         data: [studentPrPloPerlist.cast<int>(), PrPloPerlist.cast<int>()]
+        //       ),
+        //
+        //
+        //     ],
+        //   ),
+        // ),
+        SizedBox(height: 10,),
+        if(test1 != [])
+        Container(
+          height: 500,
+          width: 500,
+          child: RadarChart.light(
+            ticks: ticks,
+            features: studentPrPlolist.cast<String>(),
+            data: [test1, test2]
+
+          ),
+
+        ),
+
       ],
     );
   }
 }
+
+

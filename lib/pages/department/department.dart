@@ -44,7 +44,7 @@ class DepartmentPage extends StatelessWidget {
               DeptSectionLarge()
             else
               DeptSectionLarge(),
-            Container(child: ploTableView()),
+            //Container(child: ploTableView()),
           ],
         ))
 
