@@ -10,7 +10,8 @@ String assessname = 'Quiz';
 String qno = 'Q1';
 
 TextEditingController section = new TextEditingController();
-TextEditingController tmark = new TextEditingController();
+TextEditingController sId = new TextEditingController();
+TextEditingController oMark = new TextEditingController();
 //late TextEditingController _controller;
 String courseDropdownValue = 'CSE101';
 String semesterDropdownValue = 'Summer';
@@ -19,16 +20,16 @@ String assessnameDropdownValue = 'Quiz';
 String qnoDropdownValue = 'Q1';
 String coDropdownValue = 'CO1';
 
-class cotoExamPage extends StatefulWidget {
+class evaluationMapPage extends StatefulWidget {
   @override
-  State<cotoExamPage> createState() => _cotoExamPageState();
+  State<evaluationMapPage> createState() => _evaluationMapPageState();
 }
 
-class _cotoExamPageState extends State<cotoExamPage> {
-  Widget coExam() {
+class _evaluationMapPageState extends State<evaluationMapPage> {
+  Widget evalMap() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       CustomText(
-          text: 'Assessment Type',
+          text: 'Assessment Name',
           size: 12,
           color: Colors.black,
           weight: FontWeight.bold),
@@ -64,76 +65,7 @@ class _cotoExamPageState extends State<cotoExamPage> {
         ),
       ),
       CustomText(
-          text: 'Question',
-          size: 12,
-          color: Colors.black,
-          weight: FontWeight.bold),
-      Flexible(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: DropdownButton<String>(
-              value: qnoDropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  qnoDropdownValue = newValue!;
-                  qno = qnoDropdownValue;
-                });
-              },
-              items: <String>['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ),
-      CustomText(
-          text: 'CO', size: 12, color: Colors.black, weight: FontWeight.bold),
-      Flexible(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: DropdownButton<String>(
-              value: coDropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  coDropdownValue = newValue!;
-                  co = coDropdownValue;
-                });
-              },
-              items: <String>['CO1', 'CO2', 'CO3', 'CO4', 'CO5']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ),
-      CustomText(
-          text: 'Total Mark',
+          text: 'Obtained Mark',
           size: 12,
           color: Colors.black,
           weight: FontWeight.bold),
@@ -141,18 +73,19 @@ class _cotoExamPageState extends State<cotoExamPage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            controller: tmark,
+            controller: oMark,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Total Mark',
-              hintText: '100',
+              labelText: 'Obtained Mark',
+              hintText: '85',
             ),
             onChanged: (String value) {
               co = "$value";
             },
           ),
         ),
-      )
+      ),
+
       // Flexible(child:
       // Padding(
       //   padding: const EdgeInsets.all(8.0),
@@ -195,6 +128,27 @@ class _cotoExamPageState extends State<cotoExamPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomText(
+                        text: 'Student ID',
+                        size: 12,
+                        color: Colors.black,
+                        weight: FontWeight.bold),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: sId,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Student ID',
+                            hintText: '1821543',
+                          ),
+                          onChanged: (String value) {
+                            co = "$value";
+                          },
+                        ),
+                      ),
+                    ),
+                    CustomText(
                         text: 'Course',
                         size: 12,
                         color: Colors.black,
@@ -231,6 +185,27 @@ class _cotoExamPageState extends State<cotoExamPage> {
                               );
                             }).toList(),
                           ),
+                        ),
+                      ),
+                    ),
+                    CustomText(
+                        text: 'Section',
+                        size: 12,
+                        color: Colors.black,
+                        weight: FontWeight.bold),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: section,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Section',
+                            hintText: '1',
+                          ),
+                          onChanged: (String value) {
+                            co = "$value";
+                          },
                         ),
                       ),
                     ),
@@ -306,43 +281,22 @@ class _cotoExamPageState extends State<cotoExamPage> {
                         ),
                       ),
                     ),
-                    CustomText(
-                        text: 'Section',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          controller: section,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Section',
-                            hintText: '1',
-                          ),
-                          onChanged: (String value) {
-                            co = "$value";
-                          },
-                        ),
-                      ),
-                    )
                   ],
                 ),
-                coExam(),
-                // coExam(),
+                evalMap(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                       onPressed: () {
                         section.clear();
-                        tmark.clear();
+                        sId.clear();
+                        oMark.clear();
                         print("Submitted");
 
-                        print("Course");
+                        //print("Course");
                       },
                       child: Text('Submit')),
-                )
+                ),
               ],
             ),
           ),
@@ -350,19 +304,4 @@ class _cotoExamPageState extends State<cotoExamPage> {
       ),
     );
   }
-
-  // ignore: todo
-  // TODO: implement build
-  //   return Column(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         CustomText(
-  //           text: "PLO to CO Mapping:",
-  //           size: 18,
-  //           weight: FontWeight.bold,
-  //           color: Colors.black87,
-  //         ),
-  //       ]);
-  // }
 }
