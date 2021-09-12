@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/pages/department/dwidgets/chart%202.dart';
+import 'package:plato_six/pages/department/dwidgets/chart3.dart';
 import 'chart.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:http/http.dart' as http;
@@ -20,6 +21,10 @@ List<dynamic> achievedPloPerlist = [];
 List<dynamic> failedPlolist = [];
 List<dynamic> failedPloPerlist = [];
 
+List<dynamic> insName = [];
+List<dynamic> insPloPerlist = [];
+List<dynamic> insPlolist = [];
+
 List<int> test1 = [];
 List<int> test2 = [];
 
@@ -33,7 +38,7 @@ final coursePloUrl = 'http://localhost/platoapi/Department/AvgPLOProgramapi.php'
 final achievedPloUrl = 'http://localhost/platoapi/Department/AchievedPLOCourseapi.php';
 final failedPloUrl = 'http://localhost/platoapi/Department/FailedPLOCourseapi.php';
 
-// final InstructorPLOCourseUrl = 'http://localhost/platoapi/Department/InstructorPLOCourseapi.php';
+ final instructorPLOCourseUrl = 'http://localhost/platoapi/Department/InstructorPLOCourseapi.php';
 
 
 String pid = "BSc.CSE";
@@ -42,6 +47,11 @@ String stid = "1821557";
 String cid = "CSE303";
 String semester = "Summer";
 String year = "2021";
+
+String icid = "CSE303";
+String isemester = "Summer";
+String iyear = "2021";
+String iplo = "PO1";
 
 
 class DeptSectionLarge extends StatefulWidget {
@@ -247,12 +257,62 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
 
   }
 
+  void getInstructorWisePLO() async {
+    try{
+      dynamic body = {
+        "cid": "$icid",
+        "semester": "$isemester",
+        "year": "$iyear",
+      "plo": "$iplo",
+      };
+
+      final response = await http.post(Uri.parse(instructorPLOCourseUrl), body:
+      json.encode(body),
+          headers: {
+            //'Content-Type': 'application/json; charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            //"Authorization": "Some token",
+            "Access-Control-Allow-Headers": "*"}
+      );
+
+      if (response.statusCode == 200) {
+        // achievedPlolist.clear();
+        // achievedPloPerlist.clear();
+
+        print("ins" + response.body);
+        var parsed =  jsonDecode(response.body) as List;
+        setState(() {
+          insPlolist = parsed.map<String>((e) => e['PLONum']).toList();
+          insName = parsed.map<String>((e) => e['name']).toList();
+          insPloPerlist = parsed.map<String>((e) => e['ploper']).toList();
+
+        });
+
+
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+
+      }}catch (e) {
+      print(e.toString());
+
+    }
+
+  }
+
 
   late TextEditingController _controller;
   String prDropdownValue = 'BSc.CSE';
   String courseDropdownValue = 'CSE101';
   String semesterDropdownValue = 'Summer';
   String yearDropdownValue = '2021';
+
+  String insCourseDropdownValue = 'CSE101';
+  String insSemesterDropdownValue = 'Summer';
+  String insYearDropdownValue = '2021';
+  String insploDropdownValue = 'PO1';
 
 
   @override
@@ -262,6 +322,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
     getPrPloData();
     getAchievedPloData();
     getFailedPloData();
+    getInstructorWisePLO();
     // TODO: implement initState
     _controller = TextEditingController();
   }
@@ -525,36 +586,201 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
           ),
         ),
         SizedBox(height: 10,),
-        // Container(
-        //   padding: EdgeInsets.all(24),
-        //   margin: EdgeInsets.symmetric(vertical: 30),
-        //   decoration: BoxDecoration(
-        //     color: Colors.white,
-        //     borderRadius: BorderRadius.circular(8),
-        //     boxShadow: [
-        //       BoxShadow(
-        //           offset: Offset(0, 6),
-        //           color: lightGrey.withOpacity(.1),
-        //           blurRadius: 12)
-        //     ],
-        //     border: Border.all(color: lightGrey, width: .5),
-        //   ),
-        //   child: Column(
-        //     children: [
-        //       CustomText(text: 'PLO Achieved VS  PLO Failed', size: 18, color: Colors.black, weight: FontWeight.bold),
-        //       SizedBox(height: 20),
-        //       RadarChart.light(
-        //         ticks: ticks,
-        //         features: studentPrPlolist.cast<String>(),
-        //         data: [studentPrPloPerlist.cast<int>(), PrPloPerlist.cast<int>()]
-        //       ),
-        //
-        //
-        //     ],
-        //   ),
-        // ),
-        SizedBox(height: 10,),
+        Container(
+          padding: EdgeInsets.all(24),
+          margin: EdgeInsets.symmetric(vertical: 30),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 6),
+                  color: lightGrey.withOpacity(.1),
+                  blurRadius: 12)
+            ],
+            border: Border.all(color: lightGrey, width: .5),
+          ),
+          child: Column(
+            children: [
+              CustomText(text: 'Instructor Wise PLO ', size: 18, color: Colors.black, weight: FontWeight.bold),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                        width: 600,
+                        height: 200,
+                        child: insPlo.withSampleData()),
+                  ),
+                  Container(
+                    width: 1,
+                    height: 120,
+                    color: lightGrey,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                        Container(child: DropdownButton<String>(
+                          value: insCourseDropdownValue,
+                          icon: const Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.deepPurple),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              insCourseDropdownValue = newValue!;
+                              icid = insCourseDropdownValue;
+                            });
+                          },
+                          items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        )),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: insploDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      insploDropdownValue = newValue!;
+                                      iplo = insploDropdownValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'PO1',
+                                    'PO2',
+                                    'PO3',
+                                    'PO4',
+                                    'PO5',
+                                    'PO6',
+                                    'PO7',
+                                    'PO8',
+                                    'PO9',
+                                    'PO10',
+                                    'PO11',
+                                    'PO12',
+                                    'PO13'
+                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                              ),
 
+
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(child: DropdownButton<String>(
+                                  value: insSemesterDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      insSemesterDropdownValue = newValue!;
+                                      isemester = insSemesterDropdownValue;
+                                    });
+                                  },
+                                  items: <String>['Summer', 'Spring', 'Autumn']
+                                      .map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(child: DropdownButton<String>(
+                                  value: insYearDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      insYearDropdownValue = newValue!;
+                                      iyear = insYearDropdownValue;
+                                    });
+                                  },
+                                  items: <String>['2021', '2020']
+                                      .map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(onPressed: (){print("pressed");
+
+                          getInstructorWisePLO();
+
+
+                          }, child: Text('Submit')),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ],
+          ),
+        ),
+        SizedBox(height: 10,),
         Container(
           height: 500,
           width: 500,
