@@ -4,6 +4,8 @@ import 'package:plato_six/pages/overview/overview.dart';
 
 import 'package:flutter/material.dart';
 
+import 'evaluationMap.dart';
+
 class AdminDashboard extends StatefulWidget {
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
@@ -171,13 +173,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     // ),
                     chooseMenu(
                       context,
-                      "Go back to Overview",
-                      'logout.jpg',
+                      "Evaluation Input",
+                      'map.png',
                       () {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OverviewPage()),
+                                builder: (context) => evaluationMapPage()),
                             (Route<dynamic> route) => false);
                       },
                     ),

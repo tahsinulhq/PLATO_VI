@@ -70,6 +70,11 @@ class _cotoExamPageState extends State<cotoExamPage> {
 
   Widget coExam() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      CustomText(
+          text: 'Assessment Name',
+          size: 12,
+          color: Colors.black,
+          weight: FontWeight.bold),
       Flexible(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -101,6 +106,11 @@ class _cotoExamPageState extends State<cotoExamPage> {
           ),
         ),
       ),
+      CustomText(
+          text: 'Question Number',
+          size: 12,
+          color: Colors.black,
+          weight: FontWeight.bold),
       Flexible(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -227,78 +237,78 @@ class _cotoExamPageState extends State<cotoExamPage> {
           Expanded(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: DropdownButton<String>(
-                      value: courseDropdownValue,
-                      icon: const Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.deepPurpleAccent,
-                      ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          courseDropdownValue = newValue!;
-                          cid = courseDropdownValue;
-                        });
-                      },
-                      items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Container(
+                //     child: DropdownButton<String>(
+                //       value: courseDropdownValue,
+                //       icon: const Icon(Icons.arrow_downward),
+                //       iconSize: 24,
+                //       elevation: 16,
+                //       style: const TextStyle(color: Colors.deepPurple),
+                //       underline: Container(
+                //         height: 2,
+                //         color: Colors.deepPurpleAccent,
+                //       ),
+                //       onChanged: (String? newValue) {
+                //         setState(() {
+                //           courseDropdownValue = newValue!;
+                //           cid = courseDropdownValue;
+                //         });
+                //       },
+                //       items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
+                //           .map<DropdownMenuItem<String>>((String value) {
+                //         return DropdownMenuItem<String>(
+                //           value: value,
+                //           child: Text(value),
+                //         );
+                //       }).toList(),
+                //     ),
+                //   ),
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomText(
-                        text: 'Course',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: DropdownButton<String>(
-                            value: courseDropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                courseDropdownValue = newValue!;
-                                cid = courseDropdownValue;
-                              });
-                            },
-                            items: <String>[
-                              'CSE101',
-                              'CSE303',
-                              'CSE425',
-                              'CSE303L'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // CustomText(
+                    //     text: 'Course',
+                    //     size: 12,
+                    //     color: Colors.black,
+                    //     weight: FontWeight.bold),
+                    // Flexible(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       child: DropdownButton<String>(
+                    //         value: courseDropdownValue,
+                    //         icon: const Icon(Icons.arrow_downward),
+                    //         iconSize: 24,
+                    //         elevation: 16,
+                    //         style: const TextStyle(color: Colors.deepPurple),
+                    //         underline: Container(
+                    //           height: 2,
+                    //           color: Colors.deepPurpleAccent,
+                    //         ),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             courseDropdownValue = newValue!;
+                    //             cid = courseDropdownValue;
+                    //           });
+                    //         },
+                    //         items: <String>[
+                    //           'CSE101',
+                    //           'CSE303',
+                    //           'CSE425',
+                    //           'CSE303L'
+                    //         ].map<DropdownMenuItem<String>>((String value) {
+                    //           return DropdownMenuItem<String>(
+                    //             value: value,
+                    //             child: Text(value),
+                    //           );
+                    //         }).toList(),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     // CustomText(
                     //     text: 'Semester',
                     //     size: 12,
@@ -395,7 +405,7 @@ class _cotoExamPageState extends State<cotoExamPage> {
                   ],
                 ),
                 coExam(),
-                coExam(),
+                // coExam(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
@@ -404,15 +414,6 @@ class _cotoExamPageState extends State<cotoExamPage> {
                         section.clear();
                         tmark.clear();
                         print("Submitted");
-                        //print(plolist);
-                        //getStudentPloData();
-                        //getCoursePloData();
-                        print("Course");
-                        //print(coursePlolist);
-                        //print(coursePloPerlist);
-                        // print(semester);
-                        // print(year);
-                        // print(body);
                       },
                       child: Text('Submit')),
                 )
@@ -423,19 +424,4 @@ class _cotoExamPageState extends State<cotoExamPage> {
       ),
     );
   }
-
-  // ignore: todo
-  // TODO: implement build
-  //   return Column(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         CustomText(
-  //           text: "PLO to CO Mapping:",
-  //           size: 18,
-  //           weight: FontWeight.bold,
-  //           color: Colors.black87,
-  //         ),
-  //       ]);
-  // }
 }
