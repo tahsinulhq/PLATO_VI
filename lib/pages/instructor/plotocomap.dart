@@ -173,11 +173,20 @@ class _plotocoPageState extends State<plotocoPage> {
           Expanded(
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomText(
+                      text: "CO to PLO Mapping",
+                      size: 25,
+                      color: Colors.black,
+                      weight: FontWeight.bold),
+                ),
                 CustomText(
                     text: 'Course ID',
                     size: 12,
                     color: Colors.black,
                     weight: FontWeight.bold),
+
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

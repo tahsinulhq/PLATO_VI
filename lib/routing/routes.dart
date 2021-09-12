@@ -1,6 +1,6 @@
 const rootRoute = "/";
 
-const overviewPageDisplayName = "Overview";
+const overviewPageDisplayName = "Instructor Overview";
 const OverViewPageRoute = "/Overview";
 
 const InstructorPageDisplayName = "Instructor";
@@ -15,8 +15,8 @@ const DepartmentPageRoute = "/Department";
 const HigherAuthorityPageDisplayName = "Higher Authority";
 const HigherAuthorityPageRoute = "/Higher Authority";
 
-const AuthenticationPageDisplayName = "Log Out";
-const AuthenticationPageRoute = "/Log Out";
+// const AuthenticationPageDisplayName = "Log Out";
+// const AuthenticationPageRoute = "/Log Out";
 
 class MenuItem {
   final String name;
@@ -31,7 +31,7 @@ List<MenuItem> sideMenuItemRoutes = [
   MenuItem(StudentPageDisplayName, StudentPageRoute),
   MenuItem(DepartmentPageDisplayName, DepartmentPageRoute),
   MenuItem(HigherAuthorityPageDisplayName, HigherAuthorityPageRoute),
-  MenuItem(AuthenticationPageDisplayName, AuthenticationPageRoute)
+  // MenuItem(AuthenticationPageDisplayName, AuthenticationPageRoute)
 ];
 
 // List sideMenuItems = [

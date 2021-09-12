@@ -237,6 +237,14 @@ class _cotoExamPageState extends State<cotoExamPage> {
           Expanded(
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomText(
+                      text: "CO to Exam Mapping",
+                      size: 25,
+                      color: Colors.black,
+                      weight: FontWeight.bold),
+                ),
                 // Padding(
                 //   padding: const EdgeInsets.all(8.0),
                 //   child: Container(

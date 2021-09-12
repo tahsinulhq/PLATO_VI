@@ -190,6 +190,14 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
           Expanded(
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomText(
+                      text: "Evaluation Input",
+                      size: 25,
+                      color: Colors.black,
+                      weight: FontWeight.bold),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

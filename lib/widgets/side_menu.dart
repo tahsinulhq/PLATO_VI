@@ -12,7 +12,7 @@ import 'package:plato_six/widgets/side_menu_item.dart';
 import 'custom_text.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({ Key? key }) : super(key: key);
+  const SideMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SideMenu extends StatelessWidget {
       color: grey,
       child: ListView(
         children: [
-          if(ResponsiveWidget.isSmallScreen(context))
+          if (ResponsiveWidget.isSmallScreen(context))
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -33,12 +33,10 @@ class SideMenu extends StatelessWidget {
                   children: [
                     SizedBox(width: _width / 48),
                     //Padding(
-                      //padding: const EdgeInsets.only(right: 12),
-                      //child: Image.asset("assets/icons/logo.png"),
+                    //padding: const EdgeInsets.only(right: 12),
+                    //child: Image.asset("assets/icons/logo.png"),
                     //),
-                    Flexible(
-                      child: Image.asset('logo.png')
-                    ),
+                    Flexible(child: Image.asset('logo.png')),
                     SizedBox(width: _width / 48),
                   ],
                 ),
@@ -47,35 +45,31 @@ class SideMenu extends StatelessWidget {
                 ),
               ],
             ),
-          if(!ResponsiveWidget.isSmallScreen(context))
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-            child: Flexible(
-                child: Image.asset('logo.png')
+          if (!ResponsiveWidget.isSmallScreen(context))
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+              child: Flexible(child: Image.asset('logo.png')),
             ),
-          ),
           //Divider(color: lightGrey.withOpacity(.1), ),
 
           Column(
             mainAxisSize: MainAxisSize.min,
-            children:
-
-            sideMenuItemRoutes
+            children: sideMenuItemRoutes
                 .map((item) => SideMenuItem(
-                itemName: item.name,
-                onTap: () {
-                  if(item.route == AuthenticationPageRoute){
-                    Get.offAllNamed(AuthenticationPageRoute);
-                    menuController.changeActiveItemTo(overviewPageDisplayName);
+                    itemName: item.name,
+                    onTap: () {
+                      // if(item.route == AuthenticationPageRoute){
+                      //   Get.offAllNamed(AuthenticationPageRoute);
+                      //   menuController.changeActiveItemTo(overviewPageDisplayName);
 
-                  }
-                  if (!menuController.isActive(item.name)) {
-                    menuController.changeActiveItemTo(item.name);
-                    if(ResponsiveWidget.isSmallScreen(context))
-                      Get.back();
-                    navigationController.navigateTo(item.route);
-                  }
-                }))
+                      // }
+                      if (!menuController.isActive(item.name)) {
+                        menuController.changeActiveItemTo(item.name);
+                        if (ResponsiveWidget.isSmallScreen(context)) Get.back();
+                        navigationController.navigateTo(item.route);
+                      }
+                    }))
                 .toList(),
           ),
         ],

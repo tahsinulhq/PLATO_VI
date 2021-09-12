@@ -37,7 +37,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello!,',
+                        'Hello!',
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Quando',
@@ -48,7 +48,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         height: 5.0,
                       ),
                       Text(
-                        'Welcome back!',
+                        'Welcome!',
                         style: TextStyle(
                           color: Colors.black54,
                           fontFamily: 'raleway',
@@ -67,27 +67,27 @@ class _AdminDashboardState extends State<AdminDashboard> {
             SizedBox(
               height: 10.0,
             ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                height: MediaQuery.of(context).size.height * .10,
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  elevation: 8,
-                  child: InkWell(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'logo.png',
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Expanded(
+            //   flex: 2,
+            //   child: Container(
+            //     height: MediaQuery.of(context).size.height * .10,
+            //     width: MediaQuery.of(context).size.width,
+            //     child: Card(
+            //       elevation: 8,
+            //       child: InkWell(
+            //         child: Column(
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           // children: [
+            //           //   Image.asset(
+            //           //     'logo.png',
+            //           //   ),
+            //           // ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 25.0,
             ),

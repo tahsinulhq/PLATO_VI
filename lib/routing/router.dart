@@ -20,8 +20,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(DepartmentPage());
     case HigherAuthorityPageRoute:
       return _getPageRoute(HigherAuthorityPage());
-    case AuthenticationPageRoute:
-      return _getPageRoute(AuthenticationPage());
+    // case AuthenticationPageRoute:
+    //   return _getPageRoute(AuthenticationPage());
     default:
       return _getPageRoute(OverviewPage());
   }
