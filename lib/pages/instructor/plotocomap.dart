@@ -71,6 +71,7 @@ class _plotocoPageState extends State<plotocoPage> {
 
       if (response.statusCode == 200) {
         print("pr" + response.body);
+        // break();
       } else {
         //data = response.statusCode as String;
         print(response.statusCode);
@@ -78,10 +79,6 @@ class _plotocoPageState extends State<plotocoPage> {
     } catch (e) {
       print(e.toString());
     }
-    postPlotoCoData();
-
-    CO = TextEditingController();
-    COthresh = TextEditingController();
   }
   // Widget plotoCo() {
   //   return Container(
@@ -388,15 +385,8 @@ class _plotocoPageState extends State<plotocoPage> {
                             CO.clear();
                             COthresh.clear();
                             print("Submitted");
-                            //print(plolist);
-                            //getStudentPloData();
-                            //getCoursePloData();
+
                             print("Course");
-                            //print(coursePlolist);
-                            //print(coursePloPerlist);
-                            // print(semester);
-                            // print(year);
-                            // print(body);
                           },
                           child: Text('Submit')),
                     )

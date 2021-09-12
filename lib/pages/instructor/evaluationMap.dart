@@ -13,6 +13,7 @@ String qno = 'Q1';
 late String obmark;
 late String stid;
 late String sect;
+late String asid;
 
 final instructorEvaluation =
     'http://localhost/platoapi/Instructor/Inputs/Evaluation.php';
@@ -20,6 +21,7 @@ final instructorEvaluation =
 TextEditingController section = new TextEditingController();
 TextEditingController sId = new TextEditingController();
 TextEditingController oMark = new TextEditingController();
+TextEditingController aid = new TextEditingController();
 //late TextEditingController _controller;
 String courseDropdownValue = 'CSE101';
 String semesterDropdownValue = 'Summer';
@@ -41,6 +43,7 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
         "obmark": "$obmark",
         "stid": "$stid",
         "assessname": "$assessname",
+        "asid": "$asid",
         // "cid": "$cid",
         // "semester": "$semester",
         // "year": "$year",
@@ -103,6 +106,27 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
                 );
               }).toList(),
             ),
+          ),
+        ),
+      ),
+      CustomText(
+          text: 'Assessment ID',
+          size: 12,
+          color: Colors.black,
+          weight: FontWeight.bold),
+      Flexible(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            controller: aid,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Assessment ID',
+              hintText: '1',
+            ),
+            onChanged: (String value) {
+              asid = "$value";
+            },
           ),
         ),
       ),
@@ -330,13 +354,13 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                       onPressed: () {
-                        section.clear();
                         postEvaluationData();
+                        section.clear();
+                        aid.clear();
                         sId.clear();
                         oMark.clear();
-                        print("Submitted");
 
-                        //print("Course");
+                        print("Submitted");
                       },
                       child: Text('Submit')),
                 ),
