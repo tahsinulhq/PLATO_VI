@@ -47,7 +47,7 @@ SELECT p.PLONum, COUNT(DISTINCT s.StudentID) as Stcount
                      section_t se,
                      course_t c,
                      program_t pr,
-                     department_t d     
+                     department_t d      
                 WHERE d.DepartmentID = '$did'
                      and  se.Semester = '$semester'
                      and  se.s_year = '$year'

@@ -34,12 +34,29 @@ switch ($method) {
 function fetchAchievedPLOCourse($data) {
 include "dbconnect.php";
     $cid = $data["cid"];
-    // $stid = $data["stid"];
     $semester = $data["semester"];
     $year = $data["year"];
 
     $sql = "
-    SELECT p.PLONum,100*(sum(e.ObtainedMarks)/sum(a.Marks)) as ploper
+SELECT p.PLONum, 100*(COUNT(DISTINCT s.StudentID)/
+(
+SELECT COUNT(DISTINCT s.StudentID)
+FROM                 student_t s,
+                     assessment_t a, 
+                     evaluation_t e,
+                     co_t co, 
+                     plo_t p,
+                     section_t se
+                WHERE se.CourseID  = '$cid'
+                   and  se.Semester = '$semester'
+                   and  se.s_year = '$year'
+                   and  se.SectionID = e.SectionID
+                     and s.StudentID = e.StudentID
+                     and e.AssessmentID = a.AssessmentID
+                    and a.COID=co.COID and co.PLOID = p.PLOID
+)
+
+) AS perstd
                 FROM student_t s,
                      assessment_t a, 
                      evaluation_t e,
@@ -54,7 +71,7 @@ include "dbconnect.php";
                      and e.AssessmentID = a.AssessmentID
                     and a.COID=co.COID and co.PLOID = p.PLOID
                 GROUP BY  p.PLOID
-                HAVING ploper>=40
+                HAVING 100*(sum(e.ObtainedMarks)/sum(a.Marks))>=40
     ";
 
     $result = mysqli_query($conn, $sql);

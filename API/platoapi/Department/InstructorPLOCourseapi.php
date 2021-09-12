@@ -33,6 +33,7 @@ switch ($method) {
 
 function fetchInsPLOCourse($data) {
 include "dbconnect.php";
+    $plo = $data["plo"];
     $cid = $data["cid"];
     $semester = $data["semester"];
     $year = $data["year"];
@@ -50,7 +51,8 @@ include "dbconnect.php";
                      instructor_t i,
                      course_t c,
                      person_t pe
-                WHERE   se.CourseID  = '$cid'
+                WHERE   p.PLONum = '$plo'
+                   and  se.CourseID  = '$cid'
                    and  se.Semester = '$semester'
                    and  se.s_year = '$year'
                    and  se.InstructorID = i.InstructorID 

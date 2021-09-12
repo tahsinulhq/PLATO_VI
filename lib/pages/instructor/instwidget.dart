@@ -1,5 +1,4 @@
 import 'package:plato_six/pages/instructor/cotoexam.dart';
-import 'package:plato_six/pages/instructor/evaluationMap.dart';
 import 'package:plato_six/pages/instructor/plotocomap.dart';
 import 'package:plato_six/pages/overview/overview.dart';
 
@@ -172,13 +171,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     // ),
                     chooseMenu(
                       context,
-                      "Evaluation Input",
-                      'map.png',
+                      "Go back to Overview",
+                      'logout.jpg',
                       () {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => evaluationMapPage()),
+                                builder: (context) => OverviewPage()),
                             (Route<dynamic> route) => false);
                       },
                     ),

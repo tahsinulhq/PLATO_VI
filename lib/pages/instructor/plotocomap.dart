@@ -78,11 +78,6 @@ class _plotocoPageState extends State<plotocoPage> {
     } catch (e) {
       print(e.toString());
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
     postPlotoCoData();
 
     CO = TextEditingController();
@@ -176,11 +171,10 @@ class _plotocoPageState extends State<plotocoPage> {
         ],
         border: Border.all(color: lightGrey, width: .5),
       ),
-      child: Expanded(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
               children: [
                 CustomText(
                     text: 'Course ID',
@@ -280,129 +274,138 @@ class _plotocoPageState extends State<plotocoPage> {
                 //     ),
                 //   ),
                 // ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomText(
-                    text: 'PLO ID',
-                    size: 12,
-                    color: Colors.black,
-                    weight: FontWeight.bold),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: DropdownButton<String>(
-                        //controller: PLO,
-                        value: ploDropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            ploDropdownValue = newValue!;
-                            plo = ploDropdownValue;
-                          });
-                        },
-                        items: <String>[
-                          '1',
-                          '2',
-                          '3',
-                          '4',
-                          '5',
-                          '6',
-                          '7',
-                          '8',
-                          '9',
-                          '10',
-                          '11',
-                          '12',
-                          '13'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ),
-                CustomText(
-                    text: 'CO Number',
-                    size: 12,
-                    color: Colors.black,
-                    weight: FontWeight.bold),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: CO,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'CO',
-                        hintText: 'CO1',
-                      ),
-                      onChanged: (String value) {
-                        co = "$value";
-                      },
-                    ),
-                  ),
-                ),
-                CustomText(
-                    text: 'CO Threshold',
-                    size: 12,
-                    color: Colors.black,
-                    weight: FontWeight.bold),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: COthresh,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'CO Threshold',
-                        hintText: '40',
-                      ),
-                      onChanged: (String value1) {
-                        coThresh = "$value1";
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: ElevatedButton(
-                //         onPressed: null, child: Text('Add Field'))),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        postPlotoCoData();
-                        CO.clear();
-                        COthresh.clear();
-                        print("Submitted");
 
-                        print("Course");
-                      },
-                      child: Text('Submit')),
-                )
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(
+                        text: 'PLO ID',
+                        size: 12,
+                        color: Colors.black,
+                        weight: FontWeight.bold),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: DropdownButton<String>(
+                            //controller: PLO,
+                            value: ploDropdownValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                ploDropdownValue = newValue!;
+                                plo = ploDropdownValue;
+                              });
+                            },
+                            items: <String>[
+                              '1',
+                              '2',
+                              '3',
+                              '4',
+                              '5',
+                              '6',
+                              '7',
+                              '8',
+                              '9',
+                              '10',
+                              '11',
+                              '12',
+                              '13'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    CustomText(
+                        text: 'CO Number',
+                        size: 12,
+                        color: Colors.black,
+                        weight: FontWeight.bold),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: CO,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'CO',
+                            hintText: 'CO1',
+                          ),
+                          onChanged: (String value) {
+                            co = "$value";
+                          },
+                        ),
+                      ),
+                    ),
+                    CustomText(
+                        text: 'CO Threshold',
+                        size: 12,
+                        color: Colors.black,
+                        weight: FontWeight.bold),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: COthresh,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'CO Threshold',
+                            hintText: '40',
+                          ),
+                          onChanged: (String value1) {
+                            coThresh = "$value1";
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: ElevatedButton(
+                    //         onPressed: null, child: Text('Add Field'))),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            postPlotoCoData();
+                            CO.clear();
+                            COthresh.clear();
+                            print("Submitted");
+                            //print(plolist);
+                            //getStudentPloData();
+                            //getCoursePloData();
+                            print("Course");
+                            //print(coursePlolist);
+                            //print(coursePloPerlist);
+                            // print(semester);
+                            // print(year);
+                            // print(body);
+                          },
+                          child: Text('Submit')),
+                    )
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
