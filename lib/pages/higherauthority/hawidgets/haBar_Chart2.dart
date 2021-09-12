@@ -33,6 +33,31 @@ class HaBarChart extends StatefulWidget {
   /// Create one series with sample hard coded data.
   static List<charts.Series<Ins_PloPerformance, String>> _createSampleData() {
 
+    // for (int i=0; i<deptPloStdCount.length; i++){
+    //
+    //   deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+    //
+    // }
+
+
+    // for (int i=0; i<deptPloStdCount.length; i++){
+    //   print((double.parse(deptPloStdCount[i])/ timeFrame).toString());
+    //   deptPloStdCount2[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+    //
+    // }
+
+    print("abc");
+    print(deptPloStdCount);
+    for (int i=0; i<deptPloStdCount.length; i++){
+      print("abcd");
+      print((double.parse(deptPloStdCount[i])/ timeFrame).toString());
+      print(deptPloStdCount);
+      deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+
+    }
+    print("ab");
+    print(deptPloStdCount);
+
     List list1 = deptPloCount;
     List list2 = deptPloStdCount;
 

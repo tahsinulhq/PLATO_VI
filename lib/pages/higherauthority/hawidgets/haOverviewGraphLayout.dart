@@ -5,6 +5,7 @@ import 'haBar_Chart2.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:plato_six/widgets/custom_text.dart';
+import 'haBar_chart3.dart';
 
 List<dynamic> attemptedPlolist = [];
 List<dynamic> attemptedPloPerlist = [];
@@ -15,8 +16,15 @@ List<dynamic> achievedPloPerlist = [];
 List<dynamic> deptPloCount = [];
 List<dynamic> deptPloStdCount = [];
 
+
 List<dynamic> tempdeptPloCount = [];
 List<dynamic> tempdeptPloStdCount = [];
+
+List<dynamic> deptPloperCount = [];
+List<dynamic> deptPloperStdCount = [];
+
+List<dynamic> tempdeptPloperCount = [];
+List<dynamic> tempdeptPloperStdCount = [];
 
 final attemptedPloUrl =
     'http://localhost/platoapi/HigherAuthority/AttemptedPLOStdCountapi.php';
@@ -26,10 +34,16 @@ final achievedPloUrl =
 final deptPloUrl =
     'http://localhost/platoapi/HigherAuthority/MiscAvgPLOCountDeptapi.php';
 
+final deptploperUrl = "http://localhost/platoapi/HigherAuthority/MiscPLOPerCountStddeptapi.php";
+
 String pid = "BSc.CSE";
 String semester = 'Summer';
 String year = "2021";
 String did = "CSE";
+
+String semester2 = 'Summer';
+String year2 = "2021";
+String did2 = "CSE";
 
 String stSemester = 'Spring';
 String endSemester = 'Summer';
@@ -38,6 +52,16 @@ String passingYear = '2021';
 
 String stYear = "2021";
 String endYear = "2021";
+var timeFrame;
+
+String stSemester2 = 'Spring';
+String endSemester2 = 'Summer';
+String passingSemester2 = 'Spring';
+String passingYear2 = '2021';
+
+String stYear2 = "2021";
+String endYear2 = "2021";
+var timeFrame2;
 
 
 
@@ -56,6 +80,12 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
   String endSemesterDropdownValue = 'Summer';
   String stYearDropdownValue = '2021';
   String endYearDropdownValue = '2021';
+
+  String deptDropdownValue2 = 'CSE';
+  String stSemesterDropdownValue2 = 'Spring';
+  String endSemesterDropdownValue2 = 'Summer';
+  String stYearDropdownValue2 = '2021';
+  String endYearDropdownValue2 = '2021';
 
   void getAttemptedPloData() async {
     try {
@@ -168,23 +198,23 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
               // deptPloStdCount = deptPloStdCount;
             }
             else{
+              print('test');
+              print(deptPloStdCount);
               if(deptPloStdCount.length == tempdeptPloStdCount.length){
               for (int i=0; i<tempdeptPloStdCount.length; i++){
                 deptPloStdCount[i] = (int.parse(deptPloStdCount[i] )+ int.parse(tempdeptPloStdCount[i])).toString();}
               }
 
+
               for (int i=0; i<tempdeptPloStdCount.length; i++){
                 if(deptPloStdCount.length != tempdeptPloStdCount.length){
                   for (int j= 0; j<deptPloStdCount.length ; j++){
                     deptPloStdCount[j] = (int.parse(deptPloStdCount[j] )+ int.parse(tempdeptPloStdCount[j])).toString();
-                    i =j++;
-                  }
-                  deptPloStdCount.add(tempdeptPloStdCount[i]);
-                }
-              }
+                     i =j++;
 
-
-
+                  }}
+                else
+                  deptPloStdCount.add(tempdeptPloStdCount[i]);}
 
               setState(() {
                 deptPloStdCount;
@@ -252,7 +282,7 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
     passingSemester = "";
     var stSemVal;
     var endSemVal;
-    var timeFrame;
+
     var semDif;
     int year;
     var currSem = stSemester;
@@ -327,22 +357,256 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
 
 
     }
-  for (int i=0; i<deptPloStdCount.length; i++){
+    print("abcd");
+    print(deptPloStdCount.length);
+  // for (int i=0; i<deptPloStdCount.length; i++){
+  //   print("abcd");
+  //   print((double.parse(deptPloStdCount[i])/ timeFrame).toString());
+  //   deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+  //
+  // }
+  //
+  // setState(() {
+  //   deptPloStdCount2;
+  // });
 
-    deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+
+    // currSem = stSemester;
+    // print('PLO');
+    // print(deptPloCount);
+    // print('std Count');
+    // print(deptPloStdCount);
+
+
+
 
   }
 
-  setState(() {
-    deptPloStdCount;
-  });
+  void getPerDeptPloData() async {
+
+    try {
+      dynamic body = {"did": "$did2", "semester": "$passingSemester2", "year": "$passingYear2"};
+      print(passingSemester2);
+
+      final response = await http
+          .post(Uri.parse(deptploperUrl), body: json.encode(body), headers: {
+        //'Content-Type': 'application/json; charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        //"Authorization": "Some token",
+        "Access-Control-Allow-Headers": "*"
+      });
+
+      if (response.statusCode == 200) {
+        // deptPloCount.clear();
+        // deptPloStdCount.clear();
+
+        tempdeptPloperCount.clear();
+        tempdeptPloperStdCount.clear();
+
+        var parsed = jsonDecode(response.body) as List;
+        print(response.body);
+
+        tempdeptPloperCount = await parsed.map<String>((e) => e['PLONum']).toList();
+        tempdeptPloperStdCount = await parsed.map<String>((e) => e['perstd']).toList();
+        print("tempdpt" );
+        //tempPloCourse
+        // print(tempPloPer);
+        // print("length" );
+        // print(tempPloPer.length);
 
 
-    currSem = stSemester;
-    print('PLO');
-    print(deptPloCount);
-    print('std Count');
-    print(deptPloStdCount);
+        if (tempdeptPloperStdCount.isEmpty == true){
+
+          for (int i=0; i<tempdeptPloperStdCount.length; i++){
+
+            deptPloperStdCount.add(tempdeptPloperStdCount[i]);
+
+          }
+          setState(() {
+            deptPloperStdCount;
+          });
+        }
+        else if(tempdeptPloperStdCount.isEmpty == true){
+          // deptPloStdCount = deptPloStdCount;
+        }
+        else{
+          if(deptPloperStdCount.length == tempdeptPloperStdCount.length){
+            for (int i=0; i<tempdeptPloperStdCount.length; i++){
+              deptPloperStdCount[i] = (int.parse(deptPloperStdCount[i] )+ int.parse(tempdeptPloperStdCount[i])).toString();}
+          }
+
+          for (int i=0; i<tempdeptPloperStdCount.length; i++){
+            if(deptPloperStdCount.length != tempdeptPloperStdCount.length){
+              for (int j= 0; j<deptPloperStdCount.length ; j++){
+                deptPloperStdCount[j] = (int.parse(deptPloperStdCount[j] )+ int.parse(tempdeptPloperStdCount[j])).toString();
+                i =j++;
+              }
+              deptPloperStdCount.add(tempdeptPloperStdCount[i]);
+            }
+          }
+
+
+
+
+          setState(() {
+            deptPloperStdCount;
+          });
+          print('test');
+          print(deptPloperStdCount);
+        }
+
+        var temp = null;
+
+        if (deptPloperCount.isEmpty == true){
+          for (int i=0; i<tempdeptPloperCount.length; i++){
+
+            deptPloperCount.add(tempdeptPloperCount[i]);
+
+          }
+          setState(() {
+            deptPloperCount;
+          });
+
+
+        }
+        else{
+          for (int i=0; i<tempdeptPloperCount.length; i++){
+            for(int j =0; j<deptPloperCount.length; j++){
+
+              if(tempdeptPloperCount[i] == deptPloperCount[j] ){
+                temp = null;
+                break;
+
+              }
+
+              temp = tempdeptPloperCount[i];
+
+            }
+            if(temp != null)
+              deptPloperCount.add(temp);
+
+
+          }
+
+          setState(() {
+            deptPloperCount;
+          });
+        }
+
+
+
+
+
+
+
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  void getTimeFrame2()  {
+    deptPloperCount.clear();
+    deptPloperStdCount.clear();
+    passingYear2="";
+    passingSemester2 = "";
+    var stSemVal;
+    var endSemVal;
+    var timeFrame;
+    var semDif;
+    int year;
+    var currSem = stSemester2;
+    int currYear = int.parse(stYear2);
+
+    if(stSemester2 == "Spring"){
+      stSemVal = 1;
+    }
+    else if (stSemester2 == "Summer"){
+      stSemVal = 2;
+    }
+    else if (stSemester2 == "Autumn"){
+      stSemVal = 3;
+    }
+
+    if(endSemester2 == "Spring"){
+      endSemVal = 1;
+    }
+    else if (endSemester2 == "Summer"){
+      endSemVal = 2;
+    }
+    else if (endSemester2 == "Autumn"){
+      endSemVal = 3;
+    }
+
+    semDif = endSemVal - stSemVal;
+    semDif = semDif.abs();
+    year = int.parse(endYear2) - int.parse(stYear2);
+
+    if (year == 0){
+      timeFrame2 = semDif + 1;
+    }
+    else if(semDif == 0 && year !=0){
+      semDif = 3;
+      timeFrame2 = (semDif*year)+1;
+    }
+    else if(semDif != 0 && year !=0){
+      timeFrame2 = (semDif +(year*3))+1;
+    }
+    print("time2" );
+    print(timeFrame2);
+
+    for (int i = 0; i<timeFrame2; i++){
+      if(currSem == 'Spring'){
+        setState(() {
+          passingSemester2 = currSem;
+          passingYear2 = currYear.toString();
+        });
+        getPerDeptPloData();
+
+
+        currSem = 'Summer';
+      }
+      else if (currSem == 'Summer'){
+        setState(() {
+          passingSemester2 = currSem;
+          passingYear2 = currYear.toString();
+        });
+        getPerDeptPloData();
+        currSem = 'Autumn';
+      }
+      else if (currSem == 'Autumn'){
+        setState(() {
+          passingSemester2 = currSem;
+          passingYear2 = currYear.toString();
+        });
+        getPerDeptPloData();
+
+        currSem = 'Spring';
+        currYear++;
+      }
+
+
+    }
+    // for (int i=0; i<deptPloStdCount.length; i++){
+    //
+    //   deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+    //
+    // }
+    //
+    // setState(() {
+    //   deptPloStdCount;
+    // });
+    //
+    //
+    // currSem = stSemester;
+    // print('PLO');
+    // print(deptPloCount);
+    // print('std Count');
+    // print(deptPloStdCount);
 
 
 
@@ -353,7 +617,8 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
   void initState() {
     getAttemptedPloData();
     getAchievedPloData();
-    getTimeFrame();
+    // getTimeFrame();
+    // getTimeFrame2();
   }
 
   @override
@@ -571,7 +836,7 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   deptDropdownValue = newValue!;
-                                  pid = deptDropdownValue;
+                                  did = deptDropdownValue;
                                 });
                               },
                               items: <String>[
@@ -731,19 +996,34 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                print("pressed");
-                                // getAchievedPloData();
-                                // getAttemptedPloData();
-                                getTimeFrame();
-                                print("button");
-                                print(deptPloCount);
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    print("pressed");
+                                    // getAchievedPloData();
+                                    // getAttemptedPloData();
+                                    getTimeFrame();
+                                    print("button");
+                                    print(deptPloCount);
 
-                              },
-                              child: Text('Submit')),
+                                  },
+                                  child: Text('Submit')),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      deptPloStdCount.clear();
+                                      deptPloCount.clear();
+                                    });
+                                  },
+                                  child: Text('clear')),
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -752,7 +1032,261 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
               ),
             ],
           ),
-        )
+        ),
+        SizedBox(height: 10,),
+        Container(
+          padding: EdgeInsets.all(24),
+          margin: EdgeInsets.symmetric(vertical: 30),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 6),
+                  color: lightGrey.withOpacity(.1),
+                  blurRadius: 12)
+            ],
+            border: Border.all(color: lightGrey, width: .5),
+          ),
+          child: Column(
+            children: [
+              CustomText(
+                  text: 'PLO Comparison Among Courses',
+                  size: 18,
+                  color: Colors.black,
+                  weight: FontWeight.bold),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                        width: 600,
+                        height: 200,
+                        child: HaBarChart3.withSampleData()),
+                  ),
+                  Container(
+                    width: 1,
+                    height: 120,
+                    color: lightGrey,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: DropdownButton<String>(
+                              value: deptDropdownValue2,
+                              icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: const TextStyle(color: Colors.deepPurple),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  deptDropdownValue2 = newValue!;
+                                  did2 = deptDropdownValue2;
+                                });
+                              },
+                              items: <String>[
+                                'CEN',
+                                'CSC',
+                                'CSE'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        CustomText(
+                            text: 'From',
+                            size: 16,
+                            color: Colors.black,
+                            weight: FontWeight.normal),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: stSemesterDropdownValue2,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      stSemesterDropdownValue2 = newValue!;
+                                      stSemester = stSemesterDropdownValue2;
+                                    });
+                                  },
+                                  items: <String>['Summer', 'Spring', 'Autumn']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: stYearDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      stYearDropdownValue = newValue!;
+                                      stYear = stYearDropdownValue;
+                                    });
+                                  },
+                                  items: <String>['2021', '2020']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        CustomText(
+                            text: 'To',
+                            size: 16,
+                            color: Colors.black,
+                            weight: FontWeight.normal),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: endSemesterDropdownValue2,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      endSemesterDropdownValue2 = newValue!;
+                                      endSemester = endSemesterDropdownValue2;
+                                    });
+                                  },
+                                  items: <String>['Summer', 'Spring', 'Autumn']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: endYearDropdownValue2,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      endYearDropdownValue2 = newValue!;
+                                      endYear = endYearDropdownValue2;
+                                    });
+                                  },
+                                  items: <String>['2021', '2020']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    print("pressed");
+                                    // getAchievedPloData();
+                                    // getAttemptedPloData();
+                                    getTimeFrame2();
+                                    print("button");
+                                    // print(deptPloCount);
+
+                                  },
+                                  child: Text('Submit')),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      deptPloperStdCount.clear();
+                                      deptPloperCount.clear();
+                                    });
+                                  },
+                                  child: Text('clear')),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

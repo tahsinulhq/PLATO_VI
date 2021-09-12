@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/pages/department/dwidgets/chart%202.dart';
 import 'package:plato_six/pages/department/dwidgets/chart3.dart';
+import 'chart4.dart';
 import 'chart.dart';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'package:http/http.dart' as http;
@@ -28,6 +29,13 @@ List<dynamic> insPlolist = [];
 List<int> test1 = [];
 List<int> test2 = [];
 
+List<dynamic> tempPloCourse = [];
+List<dynamic> tempPloPer = [];
+
+
+List<dynamic> semPloCourse = [];
+List<dynamic> semPloPer = [];
+
 const ticks = [0, 20, 40, 60, 80, 90];
 
 
@@ -39,6 +47,8 @@ final achievedPloUrl = 'http://localhost/platoapi/Department/AchievedPLOCourseap
 final failedPloUrl = 'http://localhost/platoapi/Department/FailedPLOCourseapi.php';
 
  final instructorPLOCourseUrl = 'http://localhost/platoapi/Department/InstructorPLOCourseapi.php';
+
+ final ploSemesterWise = "http://localhost/platoapi/Department/SelectedPLOCompCourseapi.php";
 
 
 String pid = "BSc.CSE";
@@ -52,6 +62,22 @@ String icid = "CSE303";
 String isemester = "Summer";
 String iyear = "2021";
 String iplo = "PO1";
+
+String stSemester = 'Spring';
+String endSemester = 'Summer';
+String passingSemester = 'Spring';
+String passingYear = '2021';
+String plo = 'PO2';
+
+String stYear = "2021";
+String endYear = "2021";
+
+String deptDropdownValue = 'CSE';
+String stSemesterDropdownValue = 'Spring';
+String endSemesterDropdownValue = 'Summer';
+String stYearDropdownValue = '2021';
+String endYearDropdownValue = '2021';
+String ploDropdownValue = 'PO1';
 
 
 class DeptSectionLarge extends StatefulWidget {
@@ -299,6 +325,236 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
       print(e.toString());
 
     }
+
+  }
+
+  void getAvgDeptPloData() async {
+
+    try {
+      dynamic body = {"plo": "$plo", "semester": "$passingSemester", "year": "$passingYear"};
+      print(passingSemester);
+
+      final response = await http
+          .post(Uri.parse(ploSemesterWise), body: json.encode(body), headers: {
+        //'Content-Type': 'application/json; charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        //"Authorization": "Some token",
+        "Access-Control-Allow-Headers": "*"
+      });
+
+      if (response.statusCode == 200) {
+        // deptPloCount.clear();
+        // deptPloStdCount.clear();
+
+        tempPloCourse.clear();
+        tempPloPer.clear();
+
+        var parsed = jsonDecode(response.body) as List;
+        print(response.body);
+
+        tempPloCourse = await parsed.map<String>((e) => e['CourseID']).toList();
+        tempPloPer = await parsed.map<String>((e) => e['ploper']).toList();
+        print("tempdpt" );
+        print(tempPloPer);
+        print("length" );
+        print(tempPloPer.length);
+
+
+        if (semPloPer.isEmpty == true){
+
+          for (int i=0; i<tempPloPer.length; i++){
+
+            semPloPer.add(tempPloPer[i]);
+
+          }
+          setState(() {
+            semPloPer;
+          });
+        }
+        else if(tempPloPer.isEmpty == true){
+          // deptPloStdCount = deptPloStdCount;
+        }
+        else{
+          if(semPloPer.length == tempPloPer.length){
+            for (int i=0; i<tempPloPer.length; i++){
+              semPloPer[i] = (int.parse(semPloPer[i] )+ int.parse(tempPloPer[i])).toString();}
+          }
+
+          for (int i=0; i<tempPloPer.length; i++){
+            if(semPloPer.length != tempPloPer.length){
+              for (int j= 0; j<semPloPer.length ; j++){
+                semPloPer[j] = (int.parse(semPloPer[j] )+ int.parse(tempPloPer[j])).toString();
+                i =j++;
+              }
+              semPloPer.add(tempPloPer[i]);
+            }
+          }
+
+
+
+
+          setState(() {
+            semPloPer;
+          });
+          print('test');
+          print(semPloPer);
+        }
+
+        var temp = null;
+
+        if (semPloCourse.isEmpty == true){
+          for (int i=0; i<tempPloCourse.length; i++){
+
+            semPloCourse.add(tempPloCourse[i]);
+
+          }
+          setState(() {
+            semPloCourse;
+          });
+
+
+        }
+        else{
+          for (int i=0; i<tempPloCourse.length; i++){
+            for(int j =0; j<semPloCourse.length; j++){
+
+              if(tempPloCourse[i] == semPloCourse[j] ){
+                temp = null;
+                break;
+
+              }
+
+              temp = tempPloCourse[i];
+
+            }
+            if(temp != null)
+              semPloCourse.add(temp);
+
+
+          }
+
+          setState(() {
+            semPloCourse;
+          });
+        }
+
+
+
+
+
+
+
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  void getTimeFrame()  {
+    semPloPer.clear();
+    semPloCourse.clear();
+    passingYear="";
+    passingSemester = "";
+    var stSemVal;
+    var endSemVal;
+    var timeFrame;
+    var semDif;
+    int year;
+    var currSem = stSemester;
+    int currYear = int.parse(stYear);
+
+    if(stSemester == "Spring"){
+      stSemVal = 1;
+    }
+    else if (stSemester == "Summer"){
+      stSemVal = 2;
+    }
+    else if (stSemester == "Autumn"){
+      stSemVal = 3;
+    }
+
+    if(endSemester == "Spring"){
+      endSemVal = 1;
+    }
+    else if (endSemester == "Summer"){
+      endSemVal = 2;
+    }
+    else if (endSemester == "Autumn"){
+      endSemVal = 3;
+    }
+
+    semDif = endSemVal - stSemVal;
+    semDif = semDif.abs();
+    year = int.parse(endYear) - int.parse(stYear);
+
+    if (year == 0){
+      timeFrame = semDif + 1;
+    }
+    else if(semDif == 0 && year !=0){
+      semDif = 3;
+      timeFrame = (semDif*year)+1;
+    }
+    else if(semDif != 0 && year !=0){
+      timeFrame = (semDif +(year*3))+1;
+    }
+    print("time" );
+    print(timeFrame);
+
+    for (int i = 0; i<timeFrame; i++){
+      if(currSem == 'Spring'){
+        setState(() {
+          passingSemester = currSem;
+          passingYear = currYear.toString();
+        });
+        getAvgDeptPloData();
+
+
+        currSem = 'Summer';
+      }
+      else if (currSem == 'Summer'){
+        setState(() {
+          passingSemester = currSem;
+          passingYear = currYear.toString();
+        });
+        getAvgDeptPloData();
+        currSem = 'Autumn';
+      }
+      else if (currSem == 'Autumn'){
+        setState(() {
+          passingSemester = currSem;
+          passingYear = currYear.toString();
+        });
+        getAvgDeptPloData();
+
+        currSem = 'Spring';
+        currYear++;
+      }
+
+
+    }
+    // for (int i=0; i<deptPloStdCount.length; i++){
+    //
+    //   deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+    //
+    // }
+    //
+    // setState(() {
+    //   deptPloStdCount;
+    // });
+    //
+    //
+    // currSem = stSemester;
+    // print('PLO');
+    // print(deptPloCount);
+    // print('std Count');
+    // print(deptPloStdCount);
+
+
+
 
   }
 
@@ -777,6 +1033,291 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
                 ],
               ),
 
+            ],
+          ),
+        ),
+        SizedBox(height: 10,),
+        Container(
+          padding: EdgeInsets.all(24),
+          margin: EdgeInsets.symmetric(vertical: 30),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 6),
+                  color: lightGrey.withOpacity(.1),
+                  blurRadius: 12)
+            ],
+            border: Border.all(color: lightGrey, width: .5),
+          ),
+          child: Column(
+            children: [
+              CustomText(
+                  text: 'PLO Comparison Among Courses',
+                  size: 18,
+                  color: Colors.black,
+                  weight: FontWeight.bold),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                        width: 600,
+                        height: 200,
+                        child: SemBarChart.withSampleData()),
+                  ),
+                  Container(
+                    width: 1,
+                    height: 120,
+                    color: lightGrey,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: deptDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      deptDropdownValue = newValue!;
+                                      pid = deptDropdownValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'CEN',
+                                    'CSC',
+                                    'CSE'
+                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: ploDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      ploDropdownValue = newValue!;
+                                      plo = ploDropdownValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'PO1',
+                                    'PO2',
+                                    'PO3',
+                                    'PO4',
+                                    'PO5',
+                                    'PO6',
+                                    'PO7',
+                                    'PO8',
+                                    'PO9',
+                                    'PO10',
+                                    'PO11',
+                                    'PO12',
+                                    'PO13'
+                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        CustomText(
+                            text: 'From',
+                            size: 16,
+                            color: Colors.black,
+                            weight: FontWeight.normal),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: stSemesterDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      stSemesterDropdownValue = newValue!;
+                                      stSemester = stSemesterDropdownValue;
+                                    });
+                                  },
+                                  items: <String>['Summer', 'Spring', 'Autumn']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: stYearDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      stYearDropdownValue = newValue!;
+                                      stYear = stYearDropdownValue;
+                                    });
+                                  },
+                                  items: <String>['2021', '2020']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        CustomText(
+                            text: 'To',
+                            size: 16,
+                            color: Colors.black,
+                            weight: FontWeight.normal),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: endSemesterDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      endSemesterDropdownValue = newValue!;
+                                      endSemester = endSemesterDropdownValue;
+                                    });
+                                  },
+                                  items: <String>['Summer', 'Spring', 'Autumn']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: endYearDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style:
+                                  const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      endYearDropdownValue = newValue!;
+                                      endYear = endYearDropdownValue;
+                                    });
+                                  },
+                                  items: <String>['2021', '2020']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                              onPressed: () {
+                                print("pressed");
+                                // getAchievedPloData();
+                                // getAttemptedPloData();
+                                getTimeFrame();
+                                print("button");
+                                // print(deptPloCount);
+
+                              },
+                              child: Text('Submit')),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
