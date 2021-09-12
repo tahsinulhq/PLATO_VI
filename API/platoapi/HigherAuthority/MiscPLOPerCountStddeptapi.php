@@ -38,7 +38,7 @@ include "dbconnect.php";
     $year = $data["year"];
 
     $sql = "
-SELECT p.PLONum, 100*(COUNT(DISTINCT s.StudentID)/
+SELECT p.PLONum, ROUND(100*(COUNT(DISTINCT s.StudentID)/
 (
 SELECT COUNT(DISTINCT s.StudentID)
 FROM                 student_t s,
@@ -62,7 +62,7 @@ FROM                 student_t s,
                     and a.COID=co.COID and co.PLOID = p.PLOID
 )
 
-) AS perstd
+)) AS perstd
                 FROM student_t s,
                     assessment_t a, 
                      evaluation_t e,

@@ -55,8 +55,8 @@ include "dbconnect.php";
                    and  se.CourseID  = '$cid'
                    and  se.Semester = '$semester'
                    and  se.s_year = '$year'
-                   and  se.InstructorID = i.InstructorID 
                    and  i.PersonID = pe.PersonID
+                   and  se.InstructorID = i.InstructorID 
                    and  se.SectionID = e.SectionID
                    and  s.StudentID = e.StudentID
                    and  e.AssessmentID = a.AssessmentID
