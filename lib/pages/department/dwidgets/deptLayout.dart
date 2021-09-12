@@ -33,6 +33,9 @@ final coursePloUrl = 'http://localhost/platoapi/Department/AvgPLOProgramapi.php'
 final achievedPloUrl = 'http://localhost/platoapi/Department/AchievedPLOCourseapi.php';
 final failedPloUrl = 'http://localhost/platoapi/Department/FailedPLOCourseapi.php';
 
+// final InstructorPLOCourseUrl = 'http://localhost/platoapi/Department/InstructorPLOCourseapi.php';
+
+
 String pid = "BSc.CSE";
 String stid = "1821557";
 
@@ -185,7 +188,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
         var parsed =  jsonDecode(response.body) as List;
         setState(() {
           achievedPlolist = parsed.map<String>((e) => e['PLONum']).toList();
-          achievedPloPerlist = parsed.map<String>((e) => e['ploper']).toList();
+          achievedPloPerlist = parsed.map<String>((e) => e['perstd']).toList();
 
         });
 
@@ -228,7 +231,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
         var parsed =  jsonDecode(response.body) as List;
         setState(() {
           failedPlolist = parsed.map<String>((e) => e['PLONum']).toList();
-          failedPloPerlist = parsed.map<String>((e) => e['ploper']).toList();
+          failedPloPerlist = parsed.map<String>((e) => e['perstd']).toList();
 
         });
 
@@ -551,7 +554,7 @@ class _DeptSectionLargeState extends State<DeptSectionLarge> {
         //   ),
         // ),
         SizedBox(height: 10,),
-        if(test1 != [])
+
         Container(
           height: 500,
           width: 500,

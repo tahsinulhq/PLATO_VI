@@ -53,9 +53,9 @@ class _InstructorPageState extends State<InstructorPage> {
                   ],
                 )),
             //DropDownWidget(),
-            // SubmitButton(onPressed: () {
-            //   print("Submitted");
-            // }),
+            SubmitButton(onPressed: () {
+              print("Submitted");
+            }),
             Expanded(
                 child: ListView(
               children: [

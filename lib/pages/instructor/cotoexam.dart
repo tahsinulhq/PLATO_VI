@@ -9,9 +9,7 @@ String co = "CO1";
 String assessname = 'Quiz';
 String qno = 'Q1';
 
-TextEditingController section = new TextEditingController();
-TextEditingController tmark = new TextEditingController();
-//late TextEditingController _controller;
+late TextEditingController _controller;
 String courseDropdownValue = 'CSE101';
 String semesterDropdownValue = 'Summer';
 String yearDropdownValue = '2021';
@@ -27,11 +25,6 @@ class cotoExamPage extends StatefulWidget {
 class _cotoExamPageState extends State<cotoExamPage> {
   Widget coExam() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      CustomText(
-          text: 'Assessment Type',
-          size: 12,
-          color: Colors.black,
-          weight: FontWeight.bold),
       Flexible(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -63,11 +56,6 @@ class _cotoExamPageState extends State<cotoExamPage> {
           ),
         ),
       ),
-      CustomText(
-          text: 'Question',
-          size: 12,
-          color: Colors.black,
-          weight: FontWeight.bold),
       Flexible(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -99,8 +87,6 @@ class _cotoExamPageState extends State<cotoExamPage> {
           ),
         ),
       ),
-      CustomText(
-          text: 'CO', size: 12, color: Colors.black, weight: FontWeight.bold),
       Flexible(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -132,27 +118,6 @@ class _cotoExamPageState extends State<cotoExamPage> {
           ),
         ),
       ),
-      CustomText(
-          text: 'Total Mark',
-          size: 12,
-          color: Colors.black,
-          weight: FontWeight.bold),
-      Flexible(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: tmark,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Total Mark',
-              hintText: '100',
-            ),
-            onChanged: (String value) {
-              co = "$value";
-            },
-          ),
-        ),
-      )
       // Flexible(child:
       // Padding(
       //   padding: const EdgeInsets.all(8.0),
@@ -191,54 +156,38 @@ class _cotoExamPageState extends State<cotoExamPage> {
           Expanded(
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: DropdownButton<String>(
+                      value: courseDropdownValue,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          courseDropdownValue = newValue!;
+                          cid = courseDropdownValue;
+                        });
+                      },
+                      items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomText(
-                        text: 'Course',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: DropdownButton<String>(
-                            value: courseDropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                courseDropdownValue = newValue!;
-                                cid = courseDropdownValue;
-                              });
-                            },
-                            items: <String>[
-                              'CSE101',
-                              'CSE303',
-                              'CSE425',
-                              'CSE303L'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    CustomText(
-                        text: 'Semester',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -270,11 +219,6 @@ class _cotoExamPageState extends State<cotoExamPage> {
                         ),
                       ),
                     ),
-                    CustomText(
-                        text: 'Year',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -306,40 +250,24 @@ class _cotoExamPageState extends State<cotoExamPage> {
                         ),
                       ),
                     ),
-                    CustomText(
-                        text: 'Section',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          controller: section,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Section',
-                            hintText: '1',
-                          ),
-                          onChanged: (String value) {
-                            co = "$value";
-                          },
-                        ),
-                      ),
-                    )
                   ],
                 ),
                 coExam(),
-                // coExam(),
+                coExam(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                       onPressed: () {
-                        section.clear();
-                        tmark.clear();
                         print("Submitted");
-
+                        //print(plolist);
+                        //getStudentPloData();
+                        //getCoursePloData();
                         print("Course");
+                        //print(coursePlolist);
+                        //print(coursePloPerlist);
+                        // print(semester);
+                        // print(year);
+                        // print(body);
                       },
                       child: Text('Submit')),
                 )

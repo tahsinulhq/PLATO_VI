@@ -14,9 +14,7 @@ String year = "2021";
 String co = "CO1";
 String plo = "PLO1";
 
-TextEditingController CO = new TextEditingController();
-
-//late TextEditingController _controller;
+late TextEditingController _controller;
 String courseDropdownValue = 'CSE101';
 String semesterDropdownValue = 'Summer';
 String yearDropdownValue = '2021';
@@ -29,95 +27,68 @@ class plotocoPage extends StatefulWidget {
 }
 
 class _plotocoPageState extends State<plotocoPage> {
-  // List<DynamicPloCo> listDynamic = [];
-  // List<String> CO = [];
-  // List<String> PLO = [];
-
-  // addDynamic() {
-  //   listDynamic.add(new DynamicPloCo());
-  //   // if (CO.length != 0) {
-  //   //   floatingicon = new Icon(Icons.add);
-
-  //   //   CO = [];
-  //   //   PLO = [];
-  //   //   listDynamic = [];
-  //   // }
-  //   setState(() {});
-  //   // if (listDynamic.length >= 10) {
-  //   //   return;
-  //   // }
-  // }
-
-  Widget plotoCo() {
-    return Container(
-      child: Row(
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: DropdownButton<String>(
-                    //controller: PLO,
-                    value: ploDropdownValue,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        ploDropdownValue = newValue!;
-                        plo = ploDropdownValue;
-                      });
-                    },
-                    items: <String>[
-                      'PLO1',
-                      'PLO2',
-                      'PLO3',
-                      'PLO4',
-                      'PLO5',
-                      'PLO6',
-                      'PLO7',
-                      'PLO8',
-                      'PLO9',
-                      'PLO10',
-                      'PLO11',
-                      'PLO12',
-                      'PLO13'
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
+  Widget ploCo() {
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Flexible(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: DropdownButton<String>(
+              value: ploDropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
               ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  ploDropdownValue = newValue!;
+                  plo = ploDropdownValue;
+                });
+              },
+              items: <String>[
+                'PLO1',
+                'PLO2',
+                'PLO3',
+                'PLO4',
+                'PLO5',
+                'PLO6',
+                'PLO7',
+                'PLO8',
+                'PLO9',
+                'PLO10',
+                'PLO11',
+                'PLO12',
+                'PLO13'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: CO,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'CO',
-                    hintText: 'CO1',
-                  ),
-                  onChanged: (String value) {
-                    co = "$value";
-                  },
-                ),
-              ),
-            )
-          ]),
-        ],
+          ),
+        ),
       ),
-    );
+      Flexible(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+              //controller: _controller,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'CO',
+                hintText: 'CO1',
+              ),
+              onChanged: (String value) {
+                co = "$value";
+              }),
+        ),
+      )
+    ]);
   }
 
   @override
@@ -136,195 +107,130 @@ class _plotocoPageState extends State<plotocoPage> {
         ],
         border: Border.all(color: lightGrey, width: .5),
       ),
-      child: Expanded(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
               children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: DropdownButton<String>(
-                        value: courseDropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            courseDropdownValue = newValue!;
-                            cid = courseDropdownValue;
-                          });
-                        },
-                        items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: DropdownButton<String>(
+                      value: courseDropdownValue,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
                       ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: DropdownButton<String>(
-                        value: semesterDropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            semesterDropdownValue = newValue!;
-                            semester = semesterDropdownValue;
-                          });
-                        },
-                        items: <String>['Summer', 'Spring', 'Autumn']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: DropdownButton<String>(
-                        value: yearDropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            yearDropdownValue = newValue!;
-                            year = yearDropdownValue;
-                          });
-                        },
-                        items: <String>['2021', '2020', '2019']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: DropdownButton<String>(
-                        //controller: PLO,
-                        value: ploDropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            ploDropdownValue = newValue!;
-                            plo = ploDropdownValue;
-                          });
-                        },
-                        items: <String>[
-                          'PLO1',
-                          'PLO2',
-                          'PLO3',
-                          'PLO4',
-                          'PLO5',
-                          'PLO6',
-                          'PLO7',
-                          'PLO8',
-                          'PLO9',
-                          'PLO10',
-                          'PLO11',
-                          'PLO12',
-                          'PLO13'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: CO,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'CO',
-                        hintText: 'CO1',
-                      ),
-                      onChanged: (String value) {
-                        co = "$value";
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          courseDropdownValue = newValue!;
+                          cid = courseDropdownValue;
+                        });
                       },
+                      items: <String>['CSE101', 'CSE303', 'CSE425', 'CSE303L']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
                   ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: ElevatedButton(
-                //         onPressed: null, child: Text('Add Field'))),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: DropdownButton<String>(
+                            value: semesterDropdownValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                semesterDropdownValue = newValue!;
+                                semester = semesterDropdownValue;
+                              });
+                            },
+                            items: <String>['Summer', 'Spring', 'Autumn']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: DropdownButton<String>(
+                            value: yearDropdownValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                yearDropdownValue = newValue!;
+                                year = yearDropdownValue;
+                              });
+                            },
+                            items: <String>['2021', '2020', '2019']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                ploCo(),
+                ploCo(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                       onPressed: () {
-                        CO.clear();
                         print("Submitted");
-
+                        //print(plolist);
+                        //getStudentPloData();
+                        //getCoursePloData();
                         print("Course");
+                        //print(coursePlolist);
+                        //print(coursePloPerlist);
+                        // print(semester);
+                        // print(year);
+                        // print(body);
                       },
                       child: Text('Submit')),
                 )
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
