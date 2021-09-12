@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/widgets/custom_text.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 String cid = "CSE101";
 String semester = "Summer";
@@ -8,6 +10,12 @@ String year = "2021";
 String co = "CO1";
 String assessname = 'Quiz';
 String qno = 'Q1';
+late String obmark;
+late String stid;
+late String sect;
+
+final instructorEvaluation =
+    'http://localhost/platoapi/Instructor/Inputs/Evaluation.php';
 
 TextEditingController section = new TextEditingController();
 TextEditingController sId = new TextEditingController();
@@ -18,7 +26,7 @@ String semesterDropdownValue = 'Summer';
 String yearDropdownValue = '2021';
 String assessnameDropdownValue = 'Quiz';
 String qnoDropdownValue = 'Q1';
-String coDropdownValue = 'CO1';
+String coDropdownValue = '1';
 
 class evaluationMapPage extends StatefulWidget {
   @override
@@ -26,6 +34,40 @@ class evaluationMapPage extends StatefulWidget {
 }
 
 class _evaluationMapPageState extends State<evaluationMapPage> {
+  void postEvaluationData() async {
+    try {
+      dynamic body = {
+        "sect": "$sect",
+        "obmark": "$obmark",
+        "stid": "$stid",
+        "assessname": "$assessname",
+        // "cid": "$cid",
+        // "semester": "$semester",
+        // "year": "$year",
+      };
+
+      final response = await http.post(Uri.parse(instructorEvaluation),
+          body: json.encode(body),
+          headers: {
+            //'Content-Type': 'application/json; charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            //"Authorization": "Some token",
+            "Access-Control-Allow-Headers": "*"
+          });
+
+      if (response.statusCode == 200) {
+        print("pr" + response.body);
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Widget evalMap() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       CustomText(
@@ -80,7 +122,7 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
               hintText: '85',
             ),
             onChanged: (String value) {
-              co = "$value";
+              obmark = "$value";
             },
           ),
         ),
@@ -143,51 +185,51 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
                             hintText: '1821543',
                           ),
                           onChanged: (String value) {
-                            co = "$value";
+                            stid = "$value";
                           },
                         ),
                       ),
                     ),
-                    CustomText(
-                        text: 'Course',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: DropdownButton<String>(
-                            value: courseDropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                courseDropdownValue = newValue!;
-                                cid = courseDropdownValue;
-                              });
-                            },
-                            items: <String>[
-                              'CSE101',
-                              'CSE303',
-                              'CSE425',
-                              'CSE303L'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // CustomText(
+                    //     text: 'Course',
+                    //     size: 12,
+                    //     color: Colors.black,
+                    //     weight: FontWeight.bold),
+                    // Flexible(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       child: DropdownButton<String>(
+                    //         value: courseDropdownValue,
+                    //         icon: const Icon(Icons.arrow_downward),
+                    //         iconSize: 24,
+                    //         elevation: 16,
+                    //         style: const TextStyle(color: Colors.deepPurple),
+                    //         underline: Container(
+                    //           height: 2,
+                    //           color: Colors.deepPurpleAccent,
+                    //         ),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             courseDropdownValue = newValue!;
+                    //             cid = courseDropdownValue;
+                    //           });
+                    //         },
+                    //         items: <String>[
+                    //           'CSE101',
+                    //           'CSE303',
+                    //           'CSE425',
+                    //           'CSE303L'
+                    //         ].map<DropdownMenuItem<String>>((String value) {
+                    //           return DropdownMenuItem<String>(
+                    //             value: value,
+                    //             child: Text(value),
+                    //           );
+                    //         }).toList(),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     CustomText(
                         text: 'Section',
                         size: 12,
@@ -204,83 +246,83 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
                             hintText: '1',
                           ),
                           onChanged: (String value) {
-                            co = "$value";
+                            sect = "$value";
                           },
                         ),
                       ),
                     ),
-                    CustomText(
-                        text: 'Semester',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: DropdownButton<String>(
-                            value: semesterDropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                semesterDropdownValue = newValue!;
-                                semester = semesterDropdownValue;
-                              });
-                            },
-                            items: <String>['Summer', 'Spring', 'Autumn']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    CustomText(
-                        text: 'Year',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: DropdownButton<String>(
-                            value: yearDropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                yearDropdownValue = newValue!;
-                                year = yearDropdownValue;
-                              });
-                            },
-                            items: <String>['2021', '2020', '2019']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // CustomText(
+                    //     text: 'Semester',
+                    //     size: 12,
+                    //     color: Colors.black,
+                    //     weight: FontWeight.bold),
+                    // Flexible(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       child: DropdownButton<String>(
+                    //         value: semesterDropdownValue,
+                    //         icon: const Icon(Icons.arrow_downward),
+                    //         iconSize: 24,
+                    //         elevation: 16,
+                    //         style: const TextStyle(color: Colors.deepPurple),
+                    //         underline: Container(
+                    //           height: 2,
+                    //           color: Colors.deepPurpleAccent,
+                    //         ),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             semesterDropdownValue = newValue!;
+                    //             semester = semesterDropdownValue;
+                    //           });
+                    //         },
+                    //         items: <String>['Summer', 'Spring', 'Autumn']
+                    //             .map<DropdownMenuItem<String>>((String value) {
+                    //           return DropdownMenuItem<String>(
+                    //             value: value,
+                    //             child: Text(value),
+                    //           );
+                    //         }).toList(),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // CustomText(
+                    //     text: 'Year',
+                    //     size: 12,
+                    //     color: Colors.black,
+                    //     weight: FontWeight.bold),
+                    // Flexible(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       child: DropdownButton<String>(
+                    //         value: yearDropdownValue,
+                    //         icon: const Icon(Icons.arrow_downward),
+                    //         iconSize: 24,
+                    //         elevation: 16,
+                    //         style: const TextStyle(color: Colors.deepPurple),
+                    //         underline: Container(
+                    //           height: 2,
+                    //           color: Colors.deepPurpleAccent,
+                    //         ),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             yearDropdownValue = newValue!;
+                    //             year = yearDropdownValue;
+                    //           });
+                    //         },
+                    //         items: <String>['2021', '2020', '2019']
+                    //             .map<DropdownMenuItem<String>>((String value) {
+                    //           return DropdownMenuItem<String>(
+                    //             value: value,
+                    //             child: Text(value),
+                    //           );
+                    //         }).toList(),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 evalMap(),
@@ -289,6 +331,7 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
                   child: ElevatedButton(
                       onPressed: () {
                         section.clear();
+                        postEvaluationData();
                         sId.clear();
                         oMark.clear();
                         print("Submitted");

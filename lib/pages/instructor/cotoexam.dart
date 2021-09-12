@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plato_six/constant/style.dart';
 import 'package:plato_six/widgets/custom_text.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 String cid = "CSE101";
 String semester = "Summer";
@@ -8,6 +10,11 @@ String year = "2021";
 String co = "CO1";
 String assessname = 'Quiz';
 String qno = 'Q1';
+late String totmark;
+late String sec;
+
+final instructorCotoExam =
+    'http://localhost/platoapi/Instructor/Inputs/InstCotoExam.php';
 
 TextEditingController section = new TextEditingController();
 TextEditingController tmark = new TextEditingController();
@@ -17,7 +24,7 @@ String semesterDropdownValue = 'Summer';
 String yearDropdownValue = '2021';
 String assessnameDropdownValue = 'Quiz';
 String qnoDropdownValue = 'Q1';
-String coDropdownValue = 'CO1';
+String coDropdownValue = '1';
 
 class cotoExamPage extends StatefulWidget {
   @override
@@ -25,6 +32,41 @@ class cotoExamPage extends StatefulWidget {
 }
 
 class _cotoExamPageState extends State<cotoExamPage> {
+  void postCotoExamData() async {
+    try {
+      dynamic body = {
+        "sec": "$sec",
+        "totmark": "$totmark",
+        "assessname": "$assessname",
+        "qno": "$qno",
+        "co": "$co",
+        // "cid": "$cid",
+        // "semester": "$semester",
+        // "year": "$year",
+      };
+
+      final response = await http.post(Uri.parse(instructorCotoExam),
+          body: json.encode(body),
+          headers: {
+            //'Content-Type': 'application/json; charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            //"Authorization": "Some token",
+            "Access-Control-Allow-Headers": "*"
+          });
+
+      if (response.statusCode == 200) {
+        print("pr" + response.body);
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Widget coExam() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       CustomText(
@@ -100,7 +142,10 @@ class _cotoExamPageState extends State<cotoExamPage> {
         ),
       ),
       CustomText(
-          text: 'CO', size: 12, color: Colors.black, weight: FontWeight.bold),
+          text: 'CO ID',
+          size: 12,
+          color: Colors.black,
+          weight: FontWeight.bold),
       Flexible(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -121,7 +166,7 @@ class _cotoExamPageState extends State<cotoExamPage> {
                   co = coDropdownValue;
                 });
               },
-              items: <String>['CO1', 'CO2', 'CO3', 'CO4', 'CO5']
+              items: <String>['1', '2', '3', '4', '5']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -148,7 +193,7 @@ class _cotoExamPageState extends State<cotoExamPage> {
               hintText: '100',
             ),
             onChanged: (String value) {
-              co = "$value";
+              totmark = "$value";
             },
           ),
         ),
@@ -234,78 +279,78 @@ class _cotoExamPageState extends State<cotoExamPage> {
                         ),
                       ),
                     ),
-                    CustomText(
-                        text: 'Semester',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: DropdownButton<String>(
-                            value: semesterDropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                semesterDropdownValue = newValue!;
-                                semester = semesterDropdownValue;
-                              });
-                            },
-                            items: <String>['Summer', 'Spring', 'Autumn']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    CustomText(
-                        text: 'Year',
-                        size: 12,
-                        color: Colors.black,
-                        weight: FontWeight.bold),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: DropdownButton<String>(
-                            value: yearDropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                yearDropdownValue = newValue!;
-                                year = yearDropdownValue;
-                              });
-                            },
-                            items: <String>['2021', '2020', '2019']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // CustomText(
+                    //     text: 'Semester',
+                    //     size: 12,
+                    //     color: Colors.black,
+                    //     weight: FontWeight.bold),
+                    // Flexible(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       child: DropdownButton<String>(
+                    //         value: semesterDropdownValue,
+                    //         icon: const Icon(Icons.arrow_downward),
+                    //         iconSize: 24,
+                    //         elevation: 16,
+                    //         style: const TextStyle(color: Colors.deepPurple),
+                    //         underline: Container(
+                    //           height: 2,
+                    //           color: Colors.deepPurpleAccent,
+                    //         ),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             semesterDropdownValue = newValue!;
+                    //             semester = semesterDropdownValue;
+                    //           });
+                    //         },
+                    //         items: <String>['Summer', 'Spring', 'Autumn']
+                    //             .map<DropdownMenuItem<String>>((String value) {
+                    //           return DropdownMenuItem<String>(
+                    //             value: value,
+                    //             child: Text(value),
+                    //           );
+                    //         }).toList(),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // CustomText(
+                    //     text: 'Year',
+                    //     size: 12,
+                    //     color: Colors.black,
+                    //     weight: FontWeight.bold),
+                    // Flexible(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       child: DropdownButton<String>(
+                    //         value: yearDropdownValue,
+                    //         icon: const Icon(Icons.arrow_downward),
+                    //         iconSize: 24,
+                    //         elevation: 16,
+                    //         style: const TextStyle(color: Colors.deepPurple),
+                    //         underline: Container(
+                    //           height: 2,
+                    //           color: Colors.deepPurpleAccent,
+                    //         ),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             yearDropdownValue = newValue!;
+                    //             year = yearDropdownValue;
+                    //           });
+                    //         },
+                    //         items: <String>['2021', '2020', '2019']
+                    //             .map<DropdownMenuItem<String>>((String value) {
+                    //           return DropdownMenuItem<String>(
+                    //             value: value,
+                    //             child: Text(value),
+                    //           );
+                    //         }).toList(),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     CustomText(
                         text: 'Section',
                         size: 12,
@@ -322,7 +367,7 @@ class _cotoExamPageState extends State<cotoExamPage> {
                             hintText: '1',
                           ),
                           onChanged: (String value) {
-                            co = "$value";
+                            sec = "$value";
                           },
                         ),
                       ),
@@ -335,6 +380,7 @@ class _cotoExamPageState extends State<cotoExamPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                       onPressed: () {
+                        postCotoExamData();
                         section.clear();
                         tmark.clear();
                         print("Submitted");
