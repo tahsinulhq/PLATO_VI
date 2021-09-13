@@ -3,6 +3,7 @@ import 'package:plato_six/pages/instructor/plotocomap.dart';
 import 'package:plato_six/pages/overview/overview.dart';
 
 import 'package:flutter/material.dart';
+import 'package:plato_six/widgets/custom_text.dart';
 
 import 'evaluationMap.dart';
 
