@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'haBar_chart3.dart';
+import 'package:flutter_radar_chart/flutter_radar_chart.dart';
 
 List<dynamic> attemptedPlolist = [];
 List<dynamic> attemptedPloPerlist = [];
@@ -26,6 +27,12 @@ List<dynamic> deptPloperStdCount = [];
 List<dynamic> tempdeptPloperCount = [];
 List<dynamic> tempdeptPloperStdCount = [];
 
+
+List<dynamic> uniPloperCount = [];
+List<int> uniPloperStdCount = [];
+
+List<dynamic> tempuniPloperCount = [];
+List<dynamic> tempuniPloperStdCount = [];
 final attemptedPloUrl =
     'http://localhost/platoapi/HigherAuthority/AttemptedPLOStdCountapi.php';
 final achievedPloUrl =
@@ -35,6 +42,8 @@ final deptPloUrl =
     'http://localhost/platoapi/HigherAuthority/MiscAvgPLOCountDeptapi.php';
 
 final deptploperUrl = "http://localhost/platoapi/HigherAuthority/MiscPLOPerCountStddeptapi.php";
+
+final uniPloUrl = "http://localhost/platoapi/HigherAuthority/UniAchievedPLOCountProgramapi.php";
 
 String pid = "BSc.CSE";
 String semester = 'Summer';
@@ -63,6 +72,22 @@ String stYear2 = "2021";
 String endYear2 = "2021";
 var timeFrame2;
 
+String rpid = "BSc.CSE";
+String rsemester = 'Summer';
+String ryear3 = "2021";
+String ruid = "IUB";
+
+String rstSemester = 'Spring';
+String rendSemester = 'Summer';
+String rpassingSemester = 'Spring';
+String rpassingYear = '2021';
+String rstYear = "2021";
+String rendYear = "2021";
+var rtimeFrame;
+
+
+
+const ticks = [0, 20, 40, 60, 80, 100];
 
 
 class haOverviewGraphLayout extends StatefulWidget {
@@ -86,6 +111,14 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
   String endSemesterDropdownValue2 = 'Summer';
   String stYearDropdownValue2 = '2021';
   String endYearDropdownValue2 = '2021';
+
+  String rstSemesterDropdownValue= 'Spring';
+  String rendSemesterDropdownValue = 'Summer';
+  String rstYearDropdownValue = '2021';
+  String rendYearDropdownValue = '2021';
+  String rprDropdownValue = 'BSc.CSE';
+  String rUniDropdownValue = 'BSc.CSE';
+
 
   void getAttemptedPloData() async {
     try {
@@ -613,12 +646,245 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
 
   }
 
+  void rgetPerDeptPloData() async {
+
+    try {
+      dynamic body = {"uid": "$ruid", "pid": "$rpid", "semester": "$rpassingSemester", "year": "$rpassingYear"};
+      print(rpassingSemester);
+
+      final response = await http
+          .post(Uri.parse(uniPloUrl), body: json.encode(body), headers: {
+        //'Content-Type': 'application/json; charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        //"Authorization": "Some token",
+        "Access-Control-Allow-Headers": "*"
+      });
+
+      if (response.statusCode == 200) {
+        // deptPloCount.clear();
+        // deptPloStdCount.clear();
+
+        tempuniPloperCount.clear();
+        tempuniPloperStdCount.clear();
+
+        var parsed = jsonDecode(response.body) as List;
+        print(response.body);
+
+        tempuniPloperCount = await parsed.map<String>((e) => e['PLONum']).toList();
+        tempuniPloperStdCount = await parsed.map<String>((e) => e['perstd']).toList();
+        print("tempdpt" );
+        //tempPloCourse
+        // print(tempPloPer);
+        // print("length" );
+        // print(tempPloPer.length);
+
+
+        if (tempuniPloperStdCount.isEmpty == true){
+
+          for (int i=0; i<tempuniPloperStdCount.length; i++){
+
+            uniPloperStdCount.add(tempuniPloperStdCount[i]);
+
+          }
+          setState(() {
+            uniPloperStdCount;
+          });
+        }
+        else if(tempuniPloperStdCount.isEmpty == true){
+          // deptPloStdCount = deptPloStdCount;
+        }
+        else{
+          if(uniPloperStdCount.length == tempuniPloperStdCount.length){
+            for (int i=0; i<tempuniPloperStdCount.length; i++){
+              uniPloperStdCount[i] = uniPloperStdCount[i] + int.parse(tempuniPloperStdCount[i]);}
+          }
+
+          for (int i=0; i<tempuniPloperStdCount.length; i++){
+            if(uniPloperStdCount.length != tempuniPloperStdCount.length){
+              for (int j= 0; j<uniPloperStdCount.length ; j++){
+                uniPloperStdCount[j] = uniPloperStdCount[j] + int.parse(tempuniPloperStdCount[j]);
+                i =j++;
+              }
+              uniPloperStdCount.add(tempuniPloperStdCount[i]);
+            }
+          }
+
+
+
+
+          setState(() {
+            uniPloperStdCount;
+          });
+          print('test');
+          print(uniPloperStdCount);
+        }
+
+        var temp = null;
+
+        if (uniPloperCount.isEmpty == true){
+          for (int i=0; i<tempuniPloperCount.length; i++){
+
+            uniPloperCount.add(tempuniPloperCount[i]);
+
+          }
+          setState(() {
+            uniPloperCount;
+          });
+
+
+        }
+        else{
+          for (int i=0; i<tempuniPloperCount.length; i++){
+            for(int j =0; j<uniPloperCount.length; j++){
+
+              if(tempuniPloperCount[i] == uniPloperCount[j] ){
+                temp = null;
+                break;
+
+              }
+
+              temp = tempuniPloperCount[i];
+
+            }
+            if(temp != null)
+              uniPloperCount.add(temp);
+
+
+          }
+
+          setState(() {
+            uniPloperCount;
+          });
+        }
+
+
+
+
+
+
+
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  void rgetTimeFrame()  {
+    uniPloperCount.clear();
+    uniPloperStdCount.clear();
+    rpassingYear="";
+   rpassingSemester = "";
+    var stSemVal;
+    var endSemVal;
+    var timeFrame;
+    var semDif;
+    int year;
+    var currSem = rstSemester;
+    int currYear = int.parse(rstYear);
+
+    if(rstSemester == "Spring"){
+      stSemVal = 1;
+    }
+    else if (rstSemester == "Summer"){
+      stSemVal = 2;
+    }
+    else if (rstSemester == "Autumn"){
+      stSemVal = 3;
+    }
+
+    if(rendSemester == "Spring"){
+      endSemVal = 1;
+    }
+    else if (rendSemester == "Summer"){
+      endSemVal = 2;
+    }
+    else if (rendSemester == "Autumn"){
+      endSemVal = 3;
+    }
+
+    semDif = endSemVal - stSemVal;
+    semDif = semDif.abs();
+    year = int.parse(rendYear) - int.parse(rstYear);
+
+    if (year == 0){
+      rtimeFrame = semDif + 1;
+    }
+    else if(semDif == 0 && year !=0){
+      semDif = 3;
+      rtimeFrame = (semDif*year)+1;
+    }
+    else if(semDif != 0 && year !=0){
+      rtimeFrame = (semDif +(year*3))+1;
+    }
+    print("time2" );
+    print(rtimeFrame);
+
+    for (int i = 0; i<rtimeFrame; i++){
+      if(currSem == 'Spring'){
+        setState(() {
+          rpassingSemester = currSem;
+          rpassingYear = currYear.toString();
+        });
+        getPerDeptPloData();
+
+
+        currSem = 'Summer';
+      }
+      else if (currSem == 'Summer'){
+        setState(() {
+          rpassingSemester = currSem;
+          rpassingYear = currYear.toString();
+        });
+        getPerDeptPloData();
+        currSem = 'Autumn';
+      }
+      else if (currSem == 'Autumn'){
+        setState(() {
+          rpassingSemester = currSem;
+          rpassingYear = currYear.toString();
+        });
+        getPerDeptPloData();
+
+        currSem = 'Spring';
+        currYear++;
+      }
+
+
+    }
+    // for (int i=0; i<deptPloStdCount.length; i++){
+    //
+    //   deptPloStdCount[i] = (double.parse(deptPloStdCount[i])/ timeFrame).toString();
+    //
+    // }
+    //
+    // setState(() {
+    //   deptPloStdCount;
+    // });
+    //
+    //
+    // currSem = stSemester;
+    // print('PLO');
+    // print(deptPloCount);
+    // print('std Count');
+    // print(deptPloStdCount);
+
+
+
+
+  }
+
+
   @override
   void initState() {
     getAttemptedPloData();
     getAchievedPloData();
-    // getTimeFrame();
-    // getTimeFrame2();
+     getTimeFrame();
+     getTimeFrame2();
+     rgetTimeFrame();
   }
 
   @override
@@ -1286,6 +1552,48 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
               ),
             ],
           ),
+        ),
+        SizedBox(height: 10,),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: DropdownButton<String>(
+              value: prDropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  prDropdownValue = newValue!;
+                  pid = prDropdownValue;
+
+                });
+              },
+              items: <String>['BSc.CEN', 'BSc.CSC', 'BSc.CSE']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+        Container(
+          height: 500,
+          width: 500,
+          child: RadarChart.light(
+              ticks: ticks,
+              features: uniPloperCount.cast<String>(),
+              data: [uniPloperStdCount]
+
+          ),
+
         ),
       ],
     );
