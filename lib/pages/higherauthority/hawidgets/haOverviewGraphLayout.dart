@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:plato_six/widgets/custom_text.dart';
 import 'haBar_chart3.dart';
 import 'package:flutter_radar_chart/flutter_radar_chart.dart';
+import 'ploChart.dart';
 
 List<dynamic> attemptedPlolist = [];
 List<dynamic> attemptedPloPerlist = [];
@@ -44,6 +45,8 @@ final deptPloUrl =
 final deptploperUrl = "http://localhost/platoapi/HigherAuthority/MiscPLOPerCountStddeptapi.php";
 
 final uniPloUrl = "http://localhost/platoapi/HigherAuthority/UniAchievedPLOCountProgramapi.php";
+
+final uni2ploUrl = "http://localhost/platoapi/HigherAuthority/UniSelectedPLOCountPerStdapi.php";
 
 String pid = "BSc.CSE";
 String semester = 'Summer';
@@ -85,6 +88,13 @@ String rstYear = "2021";
 String rendYear = "2021";
 var rtimeFrame;
 
+String iuid = "IUB";
+String iplo = "PO1";
+
+List<dynamic> insName = [];
+List<dynamic> insPloPerlist = [];
+List<dynamic> insPlolist = [];
+
 
 
 const ticks = [0, 20, 40, 60, 80, 100];
@@ -118,6 +128,9 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
   String rendYearDropdownValue = '2021';
   String rprDropdownValue = 'BSc.CSE';
   String rUniDropdownValue = 'BSc.CSE';
+
+  String insUniDropdownValue = 'IUB';
+  String insploDropdownValue = 'PO1';
 
 
   void getAttemptedPloData() async {
@@ -673,8 +686,8 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
         print(response.body);
 
         tempuniPloperCount = await parsed.map<String>((e) => e['PLONum']).toList();
-        tempuniPloperStdCount = await parsed.map<String>((e) => e['perstd']).toList();
-        print("tempdpt" );
+        tempuniPloperStdCount = await parsed.map<String>((e) => e['Stcount']).toList();
+        print("tempdpt2" );
         //tempPloCourse
         // print(tempPloPer);
         // print("length" );
@@ -877,14 +890,56 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
 
   }
 
+  void getInstructorWisePLO() async {
+    try{
+      dynamic body = {
+        "uid": "$iuid",
+        "plo": "$iplo",
+      };
+
+      final response = await http.post(Uri.parse(uni2ploUrl), body:
+      json.encode(body),
+          headers: {
+            //'Content-Type': 'application/json; charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            //"Authorization": "Some token",
+            "Access-Control-Allow-Headers": "*"}
+      );
+
+      if (response.statusCode == 200) {
+        // achievedPlolist.clear();
+        // achievedPloPerlist.clear();
+
+        print("ins" + response.body);
+        var parsed =  jsonDecode(response.body) as List;
+        setState(() {
+          insPlolist = parsed.map<String>((e) => e['PLONum']).toList();
+          insPloPerlist = parsed.map<String>((e) => e['perstd']).toList();
+
+        });
+
+
+      } else {
+        //data = response.statusCode as String;
+        print(response.statusCode);
+
+      }}catch (e) {
+      print(e.toString());
+
+    }
+
+  }
+
 
   @override
   void initState() {
-    getAttemptedPloData();
-    getAchievedPloData();
-     getTimeFrame();
-     getTimeFrame2();
-     rgetTimeFrame();
+    // getAttemptedPloData();
+    // getAchievedPloData();
+    //  getTimeFrame();
+    //  getTimeFrame2();
+    // rgetTimeFrame();
   }
 
   @override
@@ -1595,6 +1650,139 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
           ),
 
         ),
+        ElevatedButton(onPressed: (){rgetTimeFrame();}, child: Text("submit")),
+        SizedBox(height: 10,),
+        Container(
+          padding: EdgeInsets.all(24),
+          margin: EdgeInsets.symmetric(vertical: 30),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 6),
+                  color: lightGrey.withOpacity(.1),
+                  blurRadius: 12)
+            ],
+            border: Border.all(color: lightGrey, width: .5),
+          ),
+          child: Column(
+            children: [
+              CustomText(text: 'University Wise Selected PLO Comparison', size: 18, color: Colors.black, weight: FontWeight.bold),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                        width: 600,
+                        height: 200,
+                        child: insPlo.withSampleData()),
+                  ),
+                  Container(
+                    width: 1,
+                    height: 120,
+                    color: lightGrey,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(child: DropdownButton<String>(
+                              value: insUniDropdownValue,
+                              icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: const TextStyle(color: Colors.deepPurple),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  insUniDropdownValue = newValue!;
+                                  iuid = insUniDropdownValue;
+                                });
+                              },
+                              items: <String>['IUB', 'NSU', 'BRACU']
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            )),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: DropdownButton<String>(
+                                  value: insploDropdownValue,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      insploDropdownValue = newValue!;
+                                      iplo = insploDropdownValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'PO1',
+                                    'PO2',
+                                    'PO3',
+                                    'PO4',
+                                    'PO5',
+                                    'PO6',
+                                    'PO7',
+                                    'PO8',
+                                    'PO9',
+                                    'PO10',
+                                    'PO11',
+                                    'PO12',
+                                    'PO13'
+                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+
+
+                          ],
+                        ),
+
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(onPressed: (){print("pressed");
+
+                          getInstructorWisePLO();
+
+
+                          }, child: Text('Submit')),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ],
+          ),
+        ),
+
       ],
     );
   }
