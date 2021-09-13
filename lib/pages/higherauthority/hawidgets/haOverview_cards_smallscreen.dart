@@ -14,7 +14,7 @@ class haOverviewCardsSmall extends StatelessWidget {
           children: [
             haInfoCardsSmall(
               title: "Total Students",
-              value: "30000",
+              value: "3000",
               onT: () {},
               //isActive: true,
             ),

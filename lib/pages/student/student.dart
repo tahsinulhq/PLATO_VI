@@ -12,7 +12,7 @@ class StudentPage extends StatelessWidget {
     // TODO: implement build
     return Column(
       children: [
-                Obx(() => Row(
+        Obx(() => Row(
               children: [
                 Container(
                     margin: EdgeInsets.only(
@@ -25,7 +25,6 @@ class StudentPage extends StatelessWidget {
                     ))
               ],
             )),
-
         Expanded(
             child: ListView(
           children: [
@@ -41,9 +40,6 @@ class StudentPage extends StatelessWidget {
             //   // DeptSectionLarge()
           ],
         ))
-
-
-
       ],
     );
   }

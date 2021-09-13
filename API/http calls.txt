@@ -36,12 +36,15 @@ http://localhost/platoapi/HigherAuthority/AchievedPLOStdCountapi.php
 1. For selected Uni, PLO achieved count comparison for each PLO within a chosen time frame:
 http://localhost/platoapi/HigherAuthority/UniAchievedPLOCountProgramapi.php
 
-3. percentage of students who achieved that/those chosen PLO/s (percentage derived from total attempted vs achieved):
+3. Percentage of students who achieved that/those chosen PLO/s (percentage derived from total attempted vs achieved):
 http://localhost/platoapi/HigherAuthority/UniSelectedPLOCountPerStdapi.php
 
 -> Miscellaneous:
 1. A chart comparing the percentage count of students who achieved all the PLOs they have attempted within a chosen time frame:
-localhost/platoapi/HigherAuthority/UniSelectedPLOCountPerStdapi.php
+http://localhost/platoapi/HigherAuthority/MiscPLOPerCountStddeptapi.php
 
 2. A chart comparing the average count of PLOs achieved within a chosen time frame:
-localhost/platoapi/HigherAuthority/MiscAvgPLOCountDeptapi.php
+http://localhost/platoapi/HigherAuthority/MiscAvgPLOCountDeptapi.php
+
+3. A chart showing the percentage of students who achieved each PLO in the course/s taught by that instructor within a chosen time frame:
+http://localhost/platoapi/Department/MiscSelectedInstructorPerCountStdapi.php

@@ -10,7 +10,7 @@ class haOverviewCardsLargeScreen extends StatelessWidget {
       children: [
         InfoCards(
           title: "Total Students",
-          value: "30000",
+          value: "3000",
           onT: () {},
           topColor: Colors.orange,
         ),
