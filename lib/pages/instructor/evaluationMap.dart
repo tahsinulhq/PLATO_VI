@@ -110,7 +110,7 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
         ),
       ),
       CustomText(
-          text: 'Assessment ID',
+          text: 'Question Number',
           size: 12,
           color: Colors.black,
           weight: FontWeight.bold),
@@ -121,7 +121,7 @@ class _evaluationMapPageState extends State<evaluationMapPage> {
             controller: aid,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Assessment ID',
+              labelText: 'Question Number',
               hintText: '1',
             ),
             onChanged: (String value) {
