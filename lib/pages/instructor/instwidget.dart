@@ -16,7 +16,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white60,
+      color: Colors.white54,
       padding: EdgeInsets.fromLTRB(20.0, 5.0, 15.0, 5.0),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -119,7 +119,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     chooseMenu(
                       context,
                       "CO to PLO Mapping",
-                      'map.png',
+                      'forms.jpg',
                       () {
                         Navigator.push(
                             context,
@@ -130,7 +130,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     chooseMenu(
                       context,
                       "CO to Exam Mapping",
-                      'map.png',
+                      'forms.jpg',
                       () {
                         Navigator.push(
                             context,
@@ -175,7 +175,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     chooseMenu(
                       context,
                       "Evaluation Input",
-                      'map.png',
+                      'forms.jpg',
                       () {
                         Navigator.pushAndRemoveUntil(
                             context,
