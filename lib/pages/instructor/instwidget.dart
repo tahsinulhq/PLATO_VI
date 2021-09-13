@@ -16,13 +16,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orangeAccent,
+      color: Colors.white60,
       padding: EdgeInsets.fromLTRB(20.0, 5.0, 15.0, 5.0),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.only(
-          top: 60.0,
+          top: 40.0,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,36 +38,36 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello!',
+                        'Instructor Input Forms',
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Quando',
-                            fontSize: 18.0,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.w700),
                       ),
                       SizedBox(
                         height: 5.0,
                       ),
-                      Text(
-                        'Welcome!',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontFamily: 'raleway',
-                          fontSize: 14,
-                        ),
-                      ),
+                      // Text(
+                      //   'Welcome!',
+                      //   style: TextStyle(
+                      //     color: Colors.black54,
+                      //     fontFamily: 'raleway',
+                      //     fontSize: 14,
+                      //   ),
+                      // ),
                     ],
                   ),
                   CircleAvatar(
                     radius: 20,
-                    //backgroundImage: AssetImage('img/user-icon.jpg'),
+                    backgroundImage: AssetImage('user_icon.jpg'),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 10.0,
-            ),
+            // SizedBox(
+            //   height: 10.0,
+            // ),
             // Expanded(
             //   flex: 2,
             //   child: Container(
@@ -89,20 +89,20 @@ class _AdminDashboardState extends State<AdminDashboard> {
             //     ),
             //   ),
             // ),
-            SizedBox(
-              height: 25.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5.0),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Quando',
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
+            // SizedBox(
+            //   height: 25.0,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 5.0),
+            //   child: Text(
+            //     'Menu',
+            //     style: TextStyle(
+            //         color: Colors.black,
+            //         fontFamily: 'Quando',
+            //         fontSize: 18.0,
+            //         fontWeight: FontWeight.w700),
+            //   ),
+            // ),
             SizedBox(
               height: 5.0,
             ),
@@ -283,9 +283,9 @@ Widget chooseMenu(context, String text, String icon, var route) {
             Text(
               text,
               style: TextStyle(
-                fontSize: 10.0,
+                fontSize: 30.0,
                 fontFamily: 'Quando',
-                color: Colors.black54,
+                color: Colors.black,
               ),
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
