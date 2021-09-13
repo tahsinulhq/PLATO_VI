@@ -1372,7 +1372,7 @@ class _haOverviewGraphLayoutState extends State<haOverviewGraphLayout> {
           child: Column(
             children: [
               CustomText(
-                  text: 'PLO Comparison Among Courses',
+                  text: 'Department Wise PLO Comparison',
                   size: 18,
                   color: Colors.black,
                   weight: FontWeight.bold),
